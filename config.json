@@ -8,7 +8,15 @@
 	"documentation": "README.md",
 
 	"framework-version": 11,
+    "enable-ajax-logging": true,
 
+    "auth-ajax-actions": [
+        "MyAction"
+    ],
+
+    "no-auth-ajax-actions": [
+        "MyAction"
+    ],
 	"authors": [
 		{
 			"name": "Ihab Zeedia",
