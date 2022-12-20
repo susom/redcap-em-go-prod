@@ -1,0 +1,57 @@
+{
+	"name": "Go-Prod Plugin Refactor",
+
+	"namespace": "Stanford\\GoProd",
+
+	"description": "This EM is a replacement for Go-Prod plugin. ",
+
+	"documentation": "README.md",
+
+	"framework-version": 11,
+
+	"authors": [
+		{
+			"name": "Ihab Zeedia",
+			"email": "ihab.zeedia@stanford.edu",
+			"institution": "Stanford University"
+		}
+	],
+
+	"permissions": [
+
+	],
+	
+	"enable-every-page-hooks-on-system-pages": false,	
+
+	"links": {
+		"project": [
+
+		],
+		"control-center": [
+
+		]
+	},
+
+	"no-auth-pages": [
+
+	],
+
+	"project-settings": [
+
+	],
+
+	"system-settings": [
+
+	],
+
+	"crons": [
+
+	],
+
+	"compatibility": {
+		"php-version-min": "",
+		"php-version-max": "",
+		"redcap-version-min": "",
+		"redcap-version-max": ""
+	}
+}
