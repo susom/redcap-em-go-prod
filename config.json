@@ -7,11 +7,23 @@
   "enable-ajax-logging": true,
   "auth-ajax-actions": [
     "ALL_VALIDATIONS",
-    "just_for_fun_project"
+    "just_for_fun_project",
+    "is_research_project",
+    "is_pi_exists",
+    "is_irb_exists",
+    "has_r2p2_project",
+    "is_rma_exists",
+    "check_test_records_and_export"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
-    "just_for_fun_project"
+    "just_for_fun_project",
+    "is_research_project",
+    "is_pi_exists",
+    "is_irb_exists",
+    "has_r2p2_project",
+    "is_rma_exists",
+    "check_test_records_and_export"
   ],
   "authors": [
     {
@@ -42,7 +54,43 @@
   "system-settings": [
     {
       "key": "just_for_fun_project",
-      "name": "Check if Project is just for Fun..",
+      "name": "Check if Project is just for Fun<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "is_research_project",
+      "name": "Check if Project is a Research Project<div class='badge badge-info'>(INFO)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "is_pi_exists",
+      "name": "Check if Project PI is defined<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "is_irb_exists",
+      "name": "Check if Project IRB is defined<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "has_r2p2_project",
+      "name": "<div class='badge badge-warning'>(STANFORD ONLY)</div> Check if this REDCap project is linked to R2P2 Project <div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "is_rma_exists",
+      "name": "<div class='badge badge-warning'>(STANFORD ONLY)</div> Check if this REDCap project part of R2P2 RMA?<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "check_test_records_and_export",
+      "name": "Check If This project has not been sufficiently tested<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }

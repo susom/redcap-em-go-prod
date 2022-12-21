@@ -48,8 +48,11 @@
                   </div>
                 </div>
             </div>
+            <div>
+              <span v-html="rule.extra"></span>
+            </div>
           </td>
-          <td><button class="btn btn-sm btn-outline-primary text-center" @click="validate(rule.key)">{{notifications.RELOAD}}</button></td>
+          <td><button class="btn btn-sm btn-outline-primary text-center" @click="validate(rule.name)">{{notifications.RELOAD}}</button></td>
         </tr>
         </tbody>
       </table>
@@ -69,11 +72,30 @@ export default {
         console.log("length", response.length);
         if (response != undefined) {
           obj.showErrorContainer = true
-          for (var key in response) {
 
-            obj.rulesArray[key] = response[key]
-            obj.rulesArray[key]['name'] = key
-            obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase()
+          for (var key in response) {
+            if(typeof response[key] === "object"){
+              // if no extra set it manually
+              if(!('extra' in response[key])){
+                response[key]['extra'] = ''
+              }
+              obj.rulesArray[key] = response[key]
+              obj.rulesArray[key]['name'] = key
+              obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase()
+
+            }else{
+              // if rule was failing then succeeded remove it from rules list.
+              if(key in obj.rulesArray){
+                var temp = obj.rulesArray
+                console.log(temp)
+                console.log(temp)
+                obj.rulesArray = {}
+                delete temp[key]
+                console.log(temp)
+                obj.rulesArray = temp
+              }
+            }
+
             console.log(obj.rulesArray)
           }
         }

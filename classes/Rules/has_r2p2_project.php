@@ -2,19 +2,17 @@
 
 namespace Stanford\GoProd;
 
-
-class just_for_fun_project implements ValidationsImplementation
+class has_r2p2_project implements ValidationsImplementation
 {
 
     private $project;
 
     private $notifications = [];
 
-    public $break=false;
+    public $break = false;
 
     public function __constructor($project, $notifications)
     {
-        //$this->break = true;
         $this->setProject($project);
         $this->setNotifications($notifications);
     }
@@ -31,19 +29,27 @@ class just_for_fun_project implements ValidationsImplementation
 
     public function validate(): bool
     {
-        return $this->getProject()->project['purpose'] === "0" ? true : false;
+        /** @var \Stanford\ProjectPortal\ProjectPortal $rma */
+        $rma = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
+        $rma->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
+
+        // if REDCap project is not linked to R2P2 Project
+        if (!empty($rma->getPortal()->projectPortalSavedConfig)) {
+            return true;
+        }
+        return false;
     }
 
     public function getErrorMessage()
     {
         return array(
-            'title' => $this->getNotifications()['JUST_FOR_FUN_PROJECT_TITLE'],
-            'body' => $this->getNotifications()['JUST_FOR_FUN_PROJECT_TITLE'],
+            'title' => $this->getNotifications()['LINKED_R2P2_TITLE'],
+            'body' => $this->getNotifications()['LINKED_R2P2_BODY'],
             'type' => $this->getNotifications()['DANGER'],
             'links' => array(
                 array(
-                    'url' => APP_PATH_WEBROOT.'ProjectSetup/index.php?pid='.$this->getProject()->project_id,
-                    'title' => $this->getNotifications()['PROJECT_SETUP']
+                    'url' => 'https://medwiki.stanford.edu/x/dZeWCg',
+                    'title' => 'Read More'
                 )
             ),
         );

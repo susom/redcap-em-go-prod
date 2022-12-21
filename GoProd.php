@@ -5,6 +5,12 @@ namespace Stanford\GoProd;
 require_once('classes/ValidationsImplementation.php');
 require_once('classes/Validations.php');
 require_once('classes/Rules/just_for_fun_project.php');
+require_once('classes/Rules/is_research_project.php');
+require_once('classes/Rules/is_pi_exists.php');
+require_once('classes/Rules/is_irb_exists.php');
+require_once('classes/Rules/has_r2p2_project.php');
+require_once('classes/Rules/is_rma_exists.php');
+require_once('classes/Rules/check_test_records_and_export.php');
 
 class GoProd extends \ExternalModules\AbstractExternalModule
 {
@@ -74,6 +80,8 @@ class GoProd extends \ExternalModules\AbstractExternalModule
                     }else{
                         $result[$name] = $validation->getErrorMessage();
                     }
+                }else{
+                    $result[$name] = true;
                 }
             }
             return $result;
@@ -81,7 +89,9 @@ class GoProd extends \ExternalModules\AbstractExternalModule
             $validation = $this->getValidations()->getEnabledRules()[$action];
             if (!$validation->validate()) {
 
-                return $validation->getErrorMessage();
+                return array($action => $validation->getErrorMessage());
+            }else{
+                return array($action => true);
             }
         } else {
             throw new \Exception("Action  $action is not defined");

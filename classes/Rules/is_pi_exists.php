@@ -2,8 +2,7 @@
 
 namespace Stanford\GoProd;
 
-
-class just_for_fun_project implements ValidationsImplementation
+class is_pi_exists implements ValidationsImplementation
 {
 
     private $project;
@@ -14,7 +13,6 @@ class just_for_fun_project implements ValidationsImplementation
 
     public function __constructor($project, $notifications)
     {
-        //$this->break = true;
         $this->setProject($project);
         $this->setNotifications($notifications);
     }
@@ -31,14 +29,20 @@ class just_for_fun_project implements ValidationsImplementation
 
     public function validate(): bool
     {
-        return $this->getProject()->project['purpose'] === "0" ? true : false;
+        $first_name = trim($this->getProject()->project['project_pi_firstname']);
+        $last_name = trim($this->getProject()->project['project_pi_lastname']);
+        $purpose = trim($this->getProject()->project['purpose']);
+        if (isset($purpose) and isset($last_name) and isset($first_name)) {
+            return $purpose === "2" and strlen($first_name) > 0 and strlen($last_name) > 0 ? true : false;
+        }
+        return false;
     }
 
     public function getErrorMessage()
     {
         return array(
-            'title' => $this->getNotifications()['JUST_FOR_FUN_PROJECT_TITLE'],
-            'body' => $this->getNotifications()['JUST_FOR_FUN_PROJECT_TITLE'],
+            'title' => $this->getNotifications()['PI_TITLE'],
+            'body' => $this->getNotifications()['PI_BODY'],
             'type' => $this->getNotifications()['DANGER'],
             'links' => array(
                 array(

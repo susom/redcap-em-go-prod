@@ -219,8 +219,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=04ed3d2e&scoped=true&
-var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=e96534f0&scoped=true&
+var ValidationComponentvue_type_template_id_e96534f0_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -263,7 +263,7 @@ var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render = functi
     })])])]), _c('td', [_c('h6', [_c('span', {
       staticClass: "badge",
       class: rule.badge
-    }, [_vm._v(_vm._s(rule.type))])])]), _c('td', _vm._l(rule.links, function (link) {
+    }, [_vm._v(_vm._s(rule.type))])])]), _c('td', [_vm._l(rule.links, function (link) {
       return _c('div', {
         key: link.url
       }, [_c('div', {
@@ -276,17 +276,21 @@ var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render = functi
           "href": link.url
         }
       }, [_vm._v(_vm._s(link.title))])])])]);
-    }), 0), _c('td', [_c('button', {
+    }), _c('div', [_c('span', {
+      domProps: {
+        "innerHTML": _vm._s(rule.extra)
+      }
+    })])], 2), _c('td', [_c('button', {
       staticClass: "btn btn-sm btn-outline-primary text-center",
       on: {
         "click": function ($event) {
-          return _vm.validate(rule.key);
+          return _vm.validate(rule.name);
         }
       }
     }, [_vm._v(_vm._s(_vm.notifications.RELOAD))])])]);
   }), 0)])]) : _vm._e()]);
 };
-var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_e96534f0_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('thead', [_c('tr', [_c('th', [_c('h6', {
@@ -307,7 +311,7 @@ var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns
   }, [_c('small', [_vm._v("(more)")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=04ed3d2e&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=e96534f0&scoped=true&
 
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=script&lang=js&
 /* harmony default export */ var ValidationComponentvue_type_script_lang_js_ = ({
@@ -322,9 +326,26 @@ var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns
         if (response != undefined) {
           obj.showErrorContainer = true;
           for (var key in response) {
-            obj.rulesArray[key] = response[key];
-            obj.rulesArray[key]['name'] = key;
-            obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase();
+            if (typeof response[key] === "object") {
+              // if no extra set it manually
+              if (!('extra' in response[key])) {
+                response[key]['extra'] = '';
+              }
+              obj.rulesArray[key] = response[key];
+              obj.rulesArray[key]['name'] = key;
+              obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase();
+            } else {
+              // if rule was failing then succeeded remove it from rules list.
+              if (key in obj.rulesArray) {
+                var temp = obj.rulesArray;
+                console.log(temp);
+                console.log(temp);
+                obj.rulesArray = {};
+                delete temp[key];
+                console.log(temp);
+                obj.rulesArray = temp;
+              }
+            }
             console.log(obj.rulesArray);
           }
         }
@@ -358,11 +379,11 @@ var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render,
-  ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_e96534f0_scoped_true_render,
+  ValidationComponentvue_type_template_id_e96534f0_scoped_true_staticRenderFns,
   false,
   null,
-  "04ed3d2e",
+  "e96534f0",
   null
   
 )
