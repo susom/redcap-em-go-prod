@@ -219,26 +219,130 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=e203c0fa&scoped=true&
-var ValidationComponentvue_type_template_id_e203c0fa_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=04ed3d2e&scoped=true&
+var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
     staticClass: "row"
-  }, [_c('div', {
+  }, [_vm.showAlert === false ? _c('div', {
     staticClass: "col-12"
   }, [_c('button', {
-    staticClass: "btn btn-md btn-primary btn-block"
-  }, [_vm._v(_vm._s(_vm.notifications.RUN))])])]), _c('hr')]);
+    staticClass: "btn btn-md btn-primary btn-block",
+    on: {
+      "click": function ($event) {
+        return _vm.validate('ALL_VALIDATIONS');
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.notifications.RUN) + " ")])]) : _vm._e(), _vm.showAlert === true ? _c('div', {
+    staticClass: "col-12"
+  }, [_c('p', {
+    staticClass: "alert",
+    class: _vm.alertVariant
+  }, [_vm._v(_vm._s(_vm.alertMessage))])]) : _vm._e()]), _c('hr'), _vm.showErrorContainer === true ? _c('div', {
+    staticClass: "col-12"
+  }, [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(0), _c('tbody', _vm._l(_vm.rulesArray, function (rule) {
+    return _c('tr', {
+      key: rule.name
+    }, [_c('td', {
+      staticClass: "gp-info-content"
+    }, [_c('div', {
+      staticClass: "gp-title-content"
+    }, [_c('strong', [_c('span', {
+      domProps: {
+        "innerHTML": _vm._s(rule.title)
+      }
+    }), _vm._m(1, true)])]), _c('div', {
+      staticClass: "gp-body-content"
+    }, [_c('p', [_c('span', {
+      domProps: {
+        "innerHTML": _vm._s(rule.body)
+      }
+    })])])]), _c('td', [_c('h6', [_c('span', {
+      staticClass: "badge",
+      class: rule.badge
+    }, [_vm._v(_vm._s(rule.type))])])]), _c('td', _vm._l(rule.links, function (link) {
+      return _c('div', {
+        key: link.url
+      }, [_c('div', {
+        staticClass: "row"
+      }, [_c('div', {
+        staticClass: "col-12"
+      }, [_c('a', {
+        attrs: {
+          "target": "_blank",
+          "href": link.url
+        }
+      }, [_vm._v(_vm._s(link.title))])])])]);
+    }), 0), _c('td', [_c('button', {
+      staticClass: "btn btn-sm btn-outline-primary text-center",
+      on: {
+        "click": function ($event) {
+          return _vm.validate(rule.key);
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.notifications.RELOAD))])])]);
+  }), 0)])]) : _vm._e()]);
 };
-var ValidationComponentvue_type_template_id_e203c0fa_scoped_true_staticRenderFns = [];
+var ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('thead', [_c('tr', [_c('th', [_c('h6', {
+    staticClass: "projhdr"
+  }, [_vm._v("Issues that you may need to fix")])]), _c('th', [_c('h6', {
+    staticClass: "projhdr"
+  }, [_vm._v("Type")])]), _c('th', [_c('h6', {
+    staticClass: "projhdr"
+  }, [_vm._v("Options")])]), _c('th')])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "title-text-plus",
+    staticStyle: {
+      "color": "#5492a3"
+    }
+  }, [_c('small', [_vm._v("(more)")])]);
+}];
+
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=04ed3d2e&scoped=true&
 
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=script&lang=js&
 /* harmony default export */ var ValidationComponentvue_type_script_lang_js_ = ({
   name: "ValidationComponent",
+  methods: {
+    validate: function (action) {
+      var obj = this;
+      window.module.ajax(action).then(function (response) {
+        // Do stuff with response
+        console.log("ajax complete", response);
+        console.log("length", response.length);
+        if (response != undefined) {
+          obj.showErrorContainer = true;
+          for (var key in response) {
+            obj.rulesArray[key] = response[key];
+            obj.rulesArray[key]['name'] = key;
+            obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase();
+            console.log(obj.rulesArray);
+          }
+        }
+      }).catch(function (err) {
+        obj.showAlert = true;
+        obj.alertMessage = err;
+        console.log(err);
+      });
+    }
+  },
   data() {
     return {
-      notifications: window.notifications
+      notifications: window.notifications,
+      rulesArray: {},
+      showAlert: false,
+      showErrorContainer: false,
+      alertMessage: '',
+      alertVariant: 'alert-danger'
     };
   }
 });
@@ -254,11 +358,11 @@ var ValidationComponentvue_type_template_id_e203c0fa_scoped_true_staticRenderFns
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_e203c0fa_scoped_true_render,
-  ValidationComponentvue_type_template_id_e203c0fa_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_render,
+  ValidationComponentvue_type_template_id_04ed3d2e_scoped_true_staticRenderFns,
   false,
   null,
-  "e203c0fa",
+  "04ed3d2e",
   null
   
 )

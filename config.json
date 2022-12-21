@@ -1,70 +1,58 @@
 {
-	"name": "Go-Prod Plugin Refactor",
-
-	"namespace": "Stanford\\GoProd",
-
-	"description": "This EM is a replacement for Go-Prod plugin. ",
-
-	"documentation": "README.md",
-
-	"framework-version": 11,
-    "enable-ajax-logging": true,
-
-    "auth-ajax-actions": [
-        "MyAction"
+  "name": "Go-Prod Plugin Refactor",
+  "namespace": "Stanford\\GoProd",
+  "description": "This EM is a replacement for Go-Prod plugin. ",
+  "documentation": "README.md",
+  "framework-version": 11,
+  "enable-ajax-logging": true,
+  "auth-ajax-actions": [
+    "ALL_VALIDATIONS",
+    "just_for_fun_project"
+  ],
+  "no-auth-ajax-actions": [
+    "ALL_VALIDATIONS",
+    "just_for_fun_project"
+  ],
+  "authors": [
+    {
+      "name": "Ihab Zeedia",
+      "email": "ihab.zeedia@stanford.edu",
+      "institution": "Stanford University"
+    }
+  ],
+  "permissions": [
+  ],
+  "enable-every-page-hooks-on-system-pages": false,
+  "links": {
+    "project": [
+      {
+        "name": "TEST PAGE: Go Prod",
+        "icon": "fas fa-cog",
+        "url": "pages/index.php",
+        "show-header-and-footer": true
+      }
     ],
-
-    "no-auth-ajax-actions": [
-        "MyAction"
-    ],
-	"authors": [
-		{
-			"name": "Ihab Zeedia",
-			"email": "ihab.zeedia@stanford.edu",
-			"institution": "Stanford University"
-		}
-	],
-
-	"permissions": [
-
-	],
-	
-	"enable-every-page-hooks-on-system-pages": false,	
-
-	"links": {
-		"project": [
-          {
-            "name": "TEST PAGE: Go Prod",
-            "icon": "fas fa-cog",
-            "url": "pages/index.php",
-            "show-header-and-footer": true
-          }
-		],
-		"control-center": [
-
-		]
-	},
-
-	"no-auth-pages": [
-
-	],
-
-	"project-settings": [
-
-	],
-
-	"system-settings": [
-
-	],
-
-	"crons": [
-
-	],
-
-	"compatibility": {
-		"php-version-min": "",
-		"php-version-max": "",
-		"redcap-version-min": "",
-		"redcap-version-max": ""
-	}
+    "control-center": [
+    ]
+  },
+  "no-auth-pages": [
+  ],
+  "project-settings": [
+  ],
+  "system-settings": [
+    {
+      "key": "just_for_fun_project",
+      "name": "Check if Project is just for Fun..",
+      "required": false,
+      "type": "checkbox"
+    }
+  ],
+  "crons": [
+  ],
+  "compatibility": {
+    "php-version-min": "",
+    "php-version-max": "",
+    "redcap-version-min": "",
+    "redcap-version-max": ""
+  }
 }
