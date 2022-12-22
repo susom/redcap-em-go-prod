@@ -14,7 +14,7 @@ class just_for_fun_project implements ValidationsImplementation
 
     public function __constructor($project, $notifications)
     {
-        //$this->break = true;
+        $this->break = true;
         $this->setProject($project);
         $this->setNotifications($notifications);
     }

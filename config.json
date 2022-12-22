@@ -18,7 +18,8 @@
     "are_dates_consistent",
     "are_positive_negative_consistent",
     "are_yes_no_consistent",
-    "asi_logic_variables_exists"
+    "asi_logic_variables_exists",
+    "check_my_first_instrument_presence"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -33,7 +34,8 @@
     "are_dates_consistent",
     "are_positive_negative_consistent",
     "are_yes_no_consistent",
-    "asi_logic_variables_exists"
+    "asi_logic_variables_exists",
+    "check_my_first_instrument_presence"
   ],
   "authors": [
     {
@@ -125,6 +127,11 @@
     {
       "key": "are_yes_no_consistent",
       "name": "Check coherence for yes and no questions<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },    {
+      "key": "check_my_first_instrument_presence",
+      "name": "Check First instrument name is form_1<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     },
