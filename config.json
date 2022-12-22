@@ -24,7 +24,8 @@
     "check_presence_of_branching_logic",
     "check_presence_of_calculated_fields",
     "data_quality_logic_variables_exists",
-    "forms_with_too_many_fields"
+    "forms_with_too_many_fields",
+    "identifier_exists"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -45,7 +46,8 @@
     "check_presence_of_branching_logic",
     "check_presence_of_calculated_fields",
     "data_quality_logic_variables_exists",
-    "forms_with_too_many_fields"
+    "forms_with_too_many_fields",
+    "identifier_exists"
   ],
   "authors": [
     {
@@ -177,6 +179,12 @@
     {
       "key": "forms_with_too_many_fields",
       "name": "Check If instruments has more that 100 fields.<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "identifier_exists",
+      "name": "Check if a field is defined as a identifier.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }

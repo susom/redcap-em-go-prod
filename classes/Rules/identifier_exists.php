@@ -5,37 +5,51 @@ namespace Stanford\GoProd;
 class identifier_exists implements ValidationsImplementation
 {
 
-    /**
-     * @return \Project
-     */
+    private $project;
+
+    private $notifications = [];
+
+    public $break = false;
+
+    public function __constructor($project, $notifications)
+    {
+        $this->setProject($project);
+        $this->setNotifications($notifications);
+    }
+
     public function getProject(): \Project
     {
-        // TODO: Implement getProject() method.
+        return $this->project;
     }
 
-    /**
-     * @param \Project $project
-     * @return void
-     */
     public function setProject(\Project $project): void
     {
-        // TODO: Implement setProject() method.
+        $this->project = $project;
     }
 
-    /**
-     * @return mixed
-     */
-    public function validate()
+    public function validate(): bool
     {
-        // TODO: Implement validate() method.
+        foreach (\REDCap::getDataDictionary() as $field_name => $field_attributes) {
+            if ($field_attributes['identifier'] == "y") {
+                return true;
+            }
+        }
+        return false;
     }
 
-    /**
-     * @return mixed
-     */
     public function getErrorMessage()
     {
-        // TODO: Implement getErrorMessage() method.
+        return array(
+            'title' => $this->getNotifications()['IDENTIFIERS_TITLE'],
+            'body' => $this->getNotifications()['IDENTIFIERS_BODY'],
+            'type' => $this->getNotifications()['WARNING'],
+            'links' => array(
+                array(
+                    'url' => APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $this->getProject()->project_id . '&route=IdentifierCheckController:index',
+                    'title' => $this->getNotifications()['EDIT']
+                )
+            ),
+        );
     }
 
     /**
@@ -43,15 +57,14 @@ class identifier_exists implements ValidationsImplementation
      */
     public function getNotifications(): array
     {
-        // TODO: Implement getNotifications() method.
+        return $this->notifications;
     }
 
     /**
      * @param array $notifications
-     * @return void
      */
     public function setNotifications(array $notifications): void
     {
-        // TODO: Implement setNotifications() method.
+        $this->notifications = $notifications;
     }
 }
