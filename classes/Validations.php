@@ -185,9 +185,8 @@ class Validations
     public static function getLists()
     {
         $var = array();
-        $dataDictionary = \REDCap::getDataDictionary('array');;
         // Loop through each field and do something with each
-        foreach ($dataDictionary as $field_name => $field_attributes) {
+        foreach (\REDCap::getDataDictionary('array') as $field_name => $field_attributes) {
             // Do something with this field if it is a checkbox field
             if ($field_attributes['field_type'] == "yesno" || $field_attributes['field_type'] == "radio" || $field_attributes['field_type'] == "dropdown") {
 
@@ -288,5 +287,26 @@ class Validations
 
 
         return $parenthesis_format;
+    }
+
+        /**
+     * @param $DataDictionary
+     * @return array
+     *
+     * Extract the Calculated fields
+     */
+    public static function getCalculatedFields(){
+        $var= array();
+        // Loop through each field and do something with each
+        foreach (\REDCap::getDataDictionary('array') as $field_name=>$field_attributes){
+            // Do something with this field if it is a checkbox field
+            if (strlen(trim($field_attributes['select_choices_or_calculations']))>0  and $field_attributes['field_type'] == 'calc' ) {
+                $FormName = $field_attributes['form_name'];
+                $FieldName = $field_attributes['field_name'];
+                $Calculation = $field_attributes['select_choices_or_calculations'];
+                array_push( $var, Array($FormName,$FieldName,$Calculation));
+            }
+        }
+        return $var;
     }
 }

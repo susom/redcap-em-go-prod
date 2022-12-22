@@ -19,7 +19,9 @@
     "are_positive_negative_consistent",
     "are_yes_no_consistent",
     "asi_logic_variables_exists",
-    "check_my_first_instrument_presence"
+    "check_my_first_instrument_presence",
+    "check_other_or_unknown",
+    "check_presence_of_branching_logic"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -35,7 +37,9 @@
     "are_positive_negative_consistent",
     "are_yes_no_consistent",
     "asi_logic_variables_exists",
-    "check_my_first_instrument_presence"
+    "check_my_first_instrument_presence",
+    "check_other_or_unknown",
+    "check_presence_of_branching_logic"
   ],
   "authors": [
     {
@@ -134,10 +138,21 @@
       "name": "Check First instrument name is form_1<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
+    },{
+      "key": "check_other_or_unknown",
+      "name": "Check \"99\" or \"98\" coding recommended for \"other\" and/or \"unknown\" values in drop-down lists, radio-buttons or check-boxes.<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
     },
     {
       "key": "asi_logic_variables_exists",
       "name": "Check Problems with ASI Logic<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "check_presence_of_branching_logic",
+      "name": "Check Branching logic inconsistencies.<div class='badge badge-danger'>(DANGER)</div>",
       "required": false,
       "type": "checkbox"
     }
