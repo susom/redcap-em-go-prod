@@ -13,7 +13,9 @@
     "is_irb_exists",
     "has_r2p2_project",
     "is_rma_exists",
-    "check_test_records_and_export"
+    "check_test_records_and_export",
+    "check_un_designated_longitudinal_forms",
+    "are_dates_consistent"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -23,7 +25,9 @@
     "is_irb_exists",
     "has_r2p2_project",
     "is_rma_exists",
-    "check_test_records_and_export"
+    "check_test_records_and_export",
+    "check_un_designated_longitudinal_forms",
+    "are_dates_consistent"
   ],
   "authors": [
     {
@@ -91,6 +95,18 @@
     {
       "key": "check_test_records_and_export",
       "name": "Check If This project has not been sufficiently tested<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "check_un_designated_longitudinal_forms",
+      "name": "Check If This project has not been sufficiently tested<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "are_dates_consistent",
+      "name": "Check If Dates fields are consistent or not<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }

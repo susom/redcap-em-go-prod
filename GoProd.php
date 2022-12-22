@@ -4,14 +4,12 @@ namespace Stanford\GoProd;
 
 require_once('classes/ValidationsImplementation.php');
 require_once('classes/Validations.php');
-require_once('classes/Rules/just_for_fun_project.php');
-require_once('classes/Rules/is_research_project.php');
-require_once('classes/Rules/is_pi_exists.php');
-require_once('classes/Rules/is_irb_exists.php');
-require_once('classes/Rules/has_r2p2_project.php');
-require_once('classes/Rules/is_rma_exists.php');
-require_once('classes/Rules/check_test_records_and_export.php');
 
+// loads all defined rules
+foreach (glob("classes/Rules/*.php") as $filename)
+{
+    require_once($filename);
+}
 class GoProd extends \ExternalModules\AbstractExternalModule
 {
 
@@ -37,6 +35,8 @@ class GoProd extends \ExternalModules\AbstractExternalModule
     {
         parent::__construct();
         // Other code to run when object is instantiated
+
+
 
         if ((isset($_GET['pid']) && $_GET['pid'] != "") || (isset($_GET['projectid']) && $_GET['projectid'] != "")) {
             global $Proj;
