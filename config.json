@@ -23,7 +23,8 @@
     "check_other_or_unknown",
     "check_presence_of_branching_logic",
     "check_presence_of_calculated_fields",
-    "data_quality_logic_variables_exists"
+    "data_quality_logic_variables_exists",
+    "forms_with_too_many_fields"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -43,7 +44,8 @@
     "check_other_or_unknown",
     "check_presence_of_branching_logic",
     "check_presence_of_calculated_fields",
-    "data_quality_logic_variables_exists"
+    "data_quality_logic_variables_exists",
+    "forms_with_too_many_fields"
   ],
   "authors": [
     {
@@ -169,6 +171,12 @@
     {
       "key": "data_quality_logic_variables_exists",
       "name": "Check Calculated fields inconsistencies.<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "forms_with_too_many_fields",
+      "name": "Check If instruments has more that 100 fields.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }
