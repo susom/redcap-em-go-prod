@@ -17,7 +17,8 @@
     "check_un_designated_longitudinal_forms",
     "are_dates_consistent",
     "are_positive_negative_consistent",
-    "are_yes_no_consistent"
+    "are_yes_no_consistent",
+    "asi_logic_variables_exists"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -31,7 +32,8 @@
     "check_un_designated_longitudinal_forms",
     "are_dates_consistent",
     "are_positive_negative_consistent",
-    "are_yes_no_consistent"
+    "are_yes_no_consistent",
+    "asi_logic_variables_exists"
   ],
   "authors": [
     {
@@ -123,6 +125,12 @@
     {
       "key": "are_yes_no_consistent",
       "name": "Check coherence for yes and no questions<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "asi_logic_variables_exists",
+      "name": "Check Problems with ASI Logic<div class='badge badge-danger'>(DANGER)</div>",
       "required": false,
       "type": "checkbox"
     }

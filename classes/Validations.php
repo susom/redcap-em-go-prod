@@ -2,6 +2,8 @@
 
 namespace Stanford\GoProd;
 
+use REDCap;
+
 class Validations
 {
     /**
@@ -98,7 +100,7 @@ class Validations
 
     }
 
-        /**
+    /**
      * @param $array
      * @return array
      * //In: Array $FormName,$FieldName,$Choices  --- Return: Array $Form,$Field, Id, Value
@@ -143,49 +145,49 @@ class Validations
         return $FilteredOut;
     }
 
-        public static function FindProblems($array){
+    public static function FindProblems($array)
+    {
 
-        $FilteredOut= array();
-        foreach ($array as $item1){
-            foreach ( $array as $item2){
+        $FilteredOut = array();
+        foreach ($array as $item1) {
+            foreach ($array as $item2) {
 
-                if ($item1[2]!=$item2[2] and !in_array($item1,$FilteredOut)){
-                    $link_path1 = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'],FILTER_SANITIZE_NUMBER_INT) . '&page=' . $item1[0] . '&field=' . $item1[1];
-                    $link_path2= APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'],FILTER_SANITIZE_NUMBER_INT) . '&page=' . $item2[0] . '&field=' . $item2[1];
+                if ($item1[2] != $item2[2] and !in_array($item1, $FilteredOut)) {
+                    $link_path1 = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT) . '&page=' . $item1[0] . '&field=' . $item1[1];
+                    $link_path2 = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT) . '&page=' . $item2[0] . '&field=' . $item2[1];
                     $link_to_edit1 = '<a href=' . $link_path1 . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'pencil.png></a>';
-                    $link_to_edit2 = '<a href=' . $link_path2. ' target="_blank" ><img src=' . APP_PATH_IMAGES. 'pencil.png></a>';
+                    $link_to_edit2 = '<a href=' . $link_path2 . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'pencil.png></a>';
                     //array_push($FilteredOut,Array($item1[0],$item1[1],$item1[2],$item1[3]));
 
 
                     // Adding : Intrument Name, instrument
-                    $label1=TextBreak($item1[1]);
-                    $label2=TextBreak($item2[1]);
+                    $label1 = TextBreak($item1[1]);
+                    $label2 = TextBreak($item2[1]);
 
 
-
-                    array_push($FilteredOut,Array($item1[0],$item1[1],$label1,$item1[3],$link_to_edit1),Array($item2[0],$item2[1],$label2 ,$item2[3],$link_to_edit2));
+                    array_push($FilteredOut, array($item1[0], $item1[1], $label1, $item1[3], $link_to_edit1), array($item2[0], $item2[1], $label2, $item2[3], $link_to_edit2));
                     break;
                 }
 
             }
-            if (!empty($FilteredOut)){
+            if (!empty($FilteredOut)) {
 
                 break;
             }
 
 
-
         }
 
-        return  array_map("unserialize", array_unique(array_map("serialize", $FilteredOut))); //return just the unique values found
+        return array_map("unserialize", array_unique(array_map("serialize", $FilteredOut))); //return just the unique values found
     }
 
 
     public static function getLists()
     {
         $var = array();
+        $dataDictionary = \REDCap::getDataDictionary('array');;
         // Loop through each field and do something with each
-        foreach ($this->dataDictionary as $field_name => $field_attributes) {
+        foreach ($dataDictionary as $field_name => $field_attributes) {
             // Do something with this field if it is a checkbox field
             if ($field_attributes['field_type'] == "yesno" || $field_attributes['field_type'] == "radio" || $field_attributes['field_type'] == "dropdown") {
 
@@ -200,5 +202,91 @@ class Validations
             }
         }
         return $var;
+    }
+
+    public static function ExtractVariables($array)
+    {
+
+        $branching_logic_array = array();
+        $re = '/\[(.*?)\]/';
+        $longitudinal = REDCap::isLongitudinal();
+        $events = REDCap::getEventNames(true, true);
+        foreach ($array as $item) {
+            preg_match_all($re, trim($item[2]), $matches);
+            //array_push($branching_logic_array,$matches[1]);
+            //$branching_logic_array=array_merge($branching_logic_array,$matches[1]);
+            foreach ($matches[1] as $item2) {
+                if ($longitudinal) {
+                    //do not remove if the Event name is also used as a Variable name.
+                    if (!in_array($item2, self::VariableNamesWithTheSameNameAsAnEventName())) {
+                        //if the variable name is in the list of events then is removed from the list of problems
+                        if (!in_array($item2, $events)) {
+                            array_push($branching_logic_array, array($item[0], $item[1], $item2));
+                        }
+                    }
+                    //if the project is not longitudinal just add all the variables
+                } else {
+                    array_push($branching_logic_array, array($item[0], $item[1], $item2));
+                }
+            }
+        }
+        return array_map("unserialize", array_unique(array_map("serialize", $branching_logic_array)));
+    }
+
+    public static function VariableNamesWithTheSameNameAsAnEventName()
+    {
+        // Check if project is longitudinal
+        $var = array();
+        if (REDCap::isLongitudinal()) {
+            $fields = REDCap::getFieldNames();
+            $events = REDCap::getEventNames(true, true);
+            $var = array_intersect($events, $fields);
+        }
+        return $var;
+    }
+
+    public static function AddCheckBoxes($fields)
+    {
+
+        $var = array();
+
+        foreach ($fields as $field_name) {
+            if (REDCap::getFieldType($field_name) == 'checkbox') {
+
+
+                $checkbox_variable_array = REDCap::getExportFieldNames($field_name);
+                foreach ($checkbox_variable_array[$field_name] as $checkbox___format) {
+                    $checkbox_field = self::TransformCheckBoxField($checkbox___format);
+                    array_push($var, $checkbox_field);
+
+                }
+            } else {
+                array_push($var, $field_name);
+            }
+        }
+        return $var;
+    }
+
+        public static function TransformCheckBoxField($field___format){
+
+         // check if is a negative code for example var(-2)
+        if(strpos( trim($field___format),  "____" ) !== false){
+            $number = substr(trim($field___format), strpos($field___format, "____") + 4);
+            //echo $number;
+            $underscore="____".$number;
+            $parenthesis="(-".$number.")";
+
+        }else {
+            $number = substr(trim($field___format), strpos($field___format, "___") + 3);
+            //echo $number;
+            $underscore = "___" . $number;
+            $parenthesis = "(" . $number . ")";
+        }
+
+
+        $parenthesis_format = str_replace($underscore,$parenthesis, $field___format);
+
+
+        return $parenthesis_format;
     }
 }
