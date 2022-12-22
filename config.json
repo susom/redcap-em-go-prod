@@ -16,7 +16,8 @@
     "check_test_records_and_export",
     "check_un_designated_longitudinal_forms",
     "are_dates_consistent",
-    "are_positive_negative_consistent"
+    "are_positive_negative_consistent",
+    "are_yes_no_consistent"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -29,7 +30,8 @@
     "check_test_records_and_export",
     "check_un_designated_longitudinal_forms",
     "are_dates_consistent",
-    "are_positive_negative_consistent"
+    "are_positive_negative_consistent",
+    "are_yes_no_consistent"
   ],
   "authors": [
     {
@@ -115,6 +117,12 @@
     {
       "key": "are_positive_negative_consistent",
       "name": "Check coherence for positive and negative questions<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "are_yes_no_consistent",
+      "name": "Check coherence for yes and no questions<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }
