@@ -22,7 +22,8 @@
     "check_my_first_instrument_presence",
     "check_other_or_unknown",
     "check_presence_of_branching_logic",
-    "check_presence_of_calculated_fields"
+    "check_presence_of_calculated_fields",
+    "data_quality_logic_variables_exists"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -41,7 +42,8 @@
     "check_my_first_instrument_presence",
     "check_other_or_unknown",
     "check_presence_of_branching_logic",
-    "check_presence_of_calculated_fields"
+    "check_presence_of_calculated_fields",
+    "data_quality_logic_variables_exists"
   ],
   "authors": [
     {
@@ -161,6 +163,12 @@
     {
       "key": "check_presence_of_calculated_fields",
       "name": "Check Calculated fields inconsistencies.<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "data_quality_logic_variables_exists",
+      "name": "Check Calculated fields inconsistencies.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }
