@@ -5,37 +5,62 @@ namespace Stanford\GoProd;
 class minimum_of_validated_fields implements ValidationsImplementation
 {
 
-    /**
-     * @return \Project
-     */
+    private $project;
+
+    private $notifications = [];
+
+    public $break = false;
+
+    private $minPercentage = 0.05;
+    public $validatedFields = 0;
+    public $textBoxFields = 0;
+
+    public function __constructor($project, $notifications)
+    {
+        $this->setProject($project);
+        $this->setNotifications($notifications);
+    }
+
     public function getProject(): \Project
     {
-        // TODO: Implement getProject() method.
+        return $this->project;
     }
 
-    /**
-     * @param \Project $project
-     * @return void
-     */
     public function setProject(\Project $project): void
     {
-        // TODO: Implement setProject() method.
+        $this->project = $project;
     }
 
-    /**
-     * @return mixed
-     */
-    public function validate()
+    public function validate(): bool
     {
-        // TODO: Implement validate() method.
+
+        // Loop through each field and do something with each
+        foreach (\REDCap::getDataDictionary() as $field_name => $field_attributes) {
+            // Do something with this field if it is a checkbox field
+            if ($field_attributes['field_type'] == "text") {
+                $this->textBoxFields++;
+                if (strlen(trim($field_attributes['text_validation_type_or_show_slider_number'])) > 0 or strlen(trim($field_attributes['select_choices_or_calculations'])) > 0) {
+                    $this->validatedFields++;
+
+                }
+            }
+
+
+        }
+
+        return ($this->validatedFields / $this->textBoxFields) < $this->minPercentage ? false : true;
+
     }
 
-    /**
-     * @return mixed
-     */
     public function getErrorMessage()
     {
-        // TODO: Implement getErrorMessage() method.
+        return array(
+            'title' => $this->getNotifications()['NUMBER_VALIDATED_RECORDS_TITLE'],
+            'body' => $this->getNotifications()['NUMBER_VALIDATED_RECORDS_BODY'],
+            'type' => $this->getNotifications()['WARNING'],
+            'extra' => '<u>' . $this->getNotifications()['VALIDATED_FIELDS'] . '</u>' . $this->validatedFields . '<br><u>' . $this->getNotifications()['TEXT_BOX_FIELDS'] . '</u>' . $this->textBoxFields,
+            'links' => array(),
+        );
     }
 
     /**
@@ -43,15 +68,14 @@ class minimum_of_validated_fields implements ValidationsImplementation
      */
     public function getNotifications(): array
     {
-        // TODO: Implement getNotifications() method.
+        return $this->notifications;
     }
 
     /**
      * @param array $notifications
-     * @return void
      */
     public function setNotifications(array $notifications): void
     {
-        // TODO: Implement setNotifications() method.
+        $this->notifications = $notifications;
     }
 }
