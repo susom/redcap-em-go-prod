@@ -36,7 +36,7 @@ class check_my_first_instrument_presence implements ValidationsImplementation
         $instrument_label = \REDCap::getInstrumentNames($unique_name);
 
 
-        return $instrument_label ? true : false;
+        return $instrument_label ? false : true;
     }
 
     public function getErrorMessage()

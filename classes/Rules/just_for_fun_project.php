@@ -31,7 +31,7 @@ class just_for_fun_project implements ValidationsImplementation
 
     public function validate(): bool
     {
-        return $this->getProject()->project['purpose'] === "0" ? true : false;
+        return $this->getProject()->project['purpose'] === "0" ? false : true;
     }
 
     public function getErrorMessage()

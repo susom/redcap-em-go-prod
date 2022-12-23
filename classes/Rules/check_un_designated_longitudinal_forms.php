@@ -60,18 +60,19 @@ class check_un_designated_longitudinal_forms implements ValidationsImplementatio
                     }
                 }
 
-               $events_with_forms = array_map("unserialize", array_unique(array_map("serialize", $events_with_forms)));
+            $events_with_forms = array_map("unserialize", array_unique(array_map("serialize", $events_with_forms)));
 
-               $result = array_diff($instrument_unique_names, $events_with_forms);
+            $result = array_diff($instrument_unique_names, $events_with_forms);
 
-                foreach ($result as $item) {
-                    $a='<a  target="_blank" href=" '.APP_PATH_WEBROOT.'Design/designate_forms.php?pid='.$this->getProject()->project_id.
-                        '"  >'.lang('VIEW').'</a>';
-                    array_push($array, Array($item,\REDCap::getInstrumentNames($item),$a));
-                }
+            foreach ($result as $item) {
+                $a = '<a  target="_blank" href=" ' . APP_PATH_WEBROOT . 'Design/designate_forms.php?pid=' . $this->getProject()->project_id .
+                    '"  >' . lang('VIEW') . '</a>';
+                array_push($array, array($item, \REDCap::getInstrumentNames($item), $a));
+            }
         }
-        if(!empty($array)){
-            $this->notDesignatedForms = $array;
+        $this->notDesignatedForms = $array;
+        if (!empty($this->notDesignatedForms)) {
+
             return false;
         }
         return true;
