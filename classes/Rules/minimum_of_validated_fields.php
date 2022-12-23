@@ -48,6 +48,10 @@ class minimum_of_validated_fields implements ValidationsImplementation
 
         }
 
+        if ($this->textBoxFields == 0) {
+            return true;
+        }
+
         return ($this->validatedFields / $this->textBoxFields) < $this->minPercentage ? false : true;
 
     }
