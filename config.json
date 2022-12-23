@@ -147,16 +147,29 @@
       "name": "Check coherence for yes and no questions<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
-    },    {
+    },
+    {
       "key": "check_my_first_instrument_presence",
       "name": "Check First instrument name is form_1<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
-    },{
+    },
+    {
       "key": "check_other_or_unknown",
       "name": "Check \"99\" or \"98\" coding recommended for \"other\" and/or \"unknown\" values in drop-down lists, radio-buttons or check-boxes.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "check_other_or_unknown_similarity",
+      "name": "Other or Unknown similarity default is 95",
+      "required": true,
+      "type": "text",
+      "branchingLogic": {
+        "field": "check_other_or_unknown",
+        "op": "==",
+        "value": "1"
+      }
     },
     {
       "key": "asi_logic_variables_exists",
@@ -189,6 +202,17 @@
       "type": "checkbox"
     },
     {
+      "key": "forms_with_too_many_fields_max_recommended",
+      "name": "Max number of fields in instrument default is 100",
+      "required": true,
+      "type": "text",
+      "branchingLogic": {
+        "field": "forms_with_too_many_fields",
+        "op": "==",
+        "value": "1"
+      }
+    },
+    {
       "key": "identifier_exists",
       "name": "Check if a field is defined as a identifier.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
@@ -199,6 +223,17 @@
       "name": "Check Very few validated text fields.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "minimum_percentage",
+      "name": "Minimum Validated Fields Percentage Eg 0.05 is %5",
+      "required": true,
+      "type": "text",
+      "branchingLogic": {
+        "field": "minimum_of_validated_fields",
+        "op": "==",
+        "value": "1"
+      }
     },
     {
       "key": "queue_logic_variables_exists",

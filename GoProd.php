@@ -62,6 +62,10 @@ class GoProd extends \ExternalModules\AbstractExternalModule
                 $obj = new $temp();
                 $obj->__constructor($this->getProject(), $this->getNotifications());
                 $rules[$name] = $obj;
+                // add prefix
+                if (property_exists($obj, 'prefix')) {
+                    $obj->prefix = $this->PREFIX;
+                }
             }
         }
         $this->getValidations()->setEnabledRules($rules);

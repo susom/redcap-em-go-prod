@@ -2,6 +2,8 @@
 
 namespace Stanford\GoProd;
 
+use ExternalModules\ExternalModules;
+
 class forms_with_too_many_fields implements ValidationsImplementation
 {
     private $project;
@@ -16,10 +18,13 @@ class forms_with_too_many_fields implements ValidationsImplementation
 
     public $modalHeader = array("Instrument Name", "Number of Fields");
 
+    public $prefix = '';
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
         $this->setNotifications($notifications);
+        $this->maxRecommended = ExternalModules::getSystemSetting($this->prefix, 'forms_with_too_many_fields_max_recommended');
     }
 
     public function getProject(): \Project

@@ -2,6 +2,8 @@
 
 namespace Stanford\GoProd;
 
+use ExternalModules\ExternalModules;
+
 class minimum_of_validated_fields implements ValidationsImplementation
 {
 
@@ -15,10 +17,13 @@ class minimum_of_validated_fields implements ValidationsImplementation
     public $validatedFields = 0;
     public $textBoxFields = 0;
 
+    public $prefix = '';
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
         $this->setNotifications($notifications);
+        $this->minPercentage = ExternalModules::getSystemSetting($this->prefix, 'minimum_percentage');
     }
 
     public function getProject(): \Project

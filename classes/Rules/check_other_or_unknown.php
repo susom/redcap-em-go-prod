@@ -2,6 +2,8 @@
 
 namespace Stanford\GoProd;
 
+use ExternalModules\ExternalModules;
+
 class check_other_or_unknown implements ValidationsImplementation
 {
     private $project;
@@ -20,10 +22,13 @@ class check_other_or_unknown implements ValidationsImplementation
 
     public $inconsistentFields = [];
 
+    public $prefix;
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
         $this->setNotifications($notifications);
+        $this->similarity = ExternalModules::getSystemSetting($this->prefix, 'check_other_or_unknown_similarity');
     }
 
     public function getProject(): \Project
