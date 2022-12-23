@@ -72,8 +72,8 @@ class are_dates_consistent implements ValidationsImplementation
                     $link_to_edit2 = '<a href=' . $link_path2 . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'pencil.png></a>';
 
 
-                    $label1 = TextBreak($item1[1]);
-                    $label2 = TextBreak($item2[1]);
+                    $label1 = Validations::TextBreak($item1[1]);
+                    $label2 = Validations::TextBreak($item2[1]);
 
 
                     array_push($FilteredOut, array($item1[0], $item1[1], $label1, '<strong style="color: red">' . $item1[3] . '</strong>', $link_to_edit1), array($item2[0], $item2[1], $label2, '<strong style="color: red">' . $item2[3] . '</strong>', $link_to_edit2));

@@ -92,7 +92,7 @@ class check_presence_of_branching_logic implements ValidationsImplementation
             if (!in_array($variable[2], $fields)) {
 
 
-                $label = TextBreak($variable[1]);
+                $label = Validations::TextBreak($variable[1]);
 
 
                 $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . $this->getProject()->project_id .

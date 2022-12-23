@@ -26,7 +26,9 @@
     "data_quality_logic_variables_exists",
     "forms_with_too_many_fields",
     "identifier_exists",
-    "minimum_of_validated_fields"
+    "minimum_of_validated_fields",
+    "reports_logic_variables_exists",
+    "today_exists_in_calculations"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -49,7 +51,9 @@
     "data_quality_logic_variables_exists",
     "forms_with_too_many_fields",
     "identifier_exists",
-    "minimum_of_validated_fields"
+    "minimum_of_validated_fields",
+    "reports_logic_variables_exists",
+    "today_exists_in_calculations"
   ],
   "authors": [
     {
@@ -198,7 +202,19 @@
     },
     {
       "key": "queue_logic_variables_exists",
-      "name": "Problems found in the Survey Queue logic.<div class='badge badge-danger'>(DANGER)</div>",
+      "name": "Check Problems found in the Survey Queue logic.<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "reports_logic_variables_exists",
+      "name": "Check Problems found in some of your Reports Advanced Filter Logic.<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "today_exists_in_calculations",
+      "name": "Check Calculations using \"Today\".<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }

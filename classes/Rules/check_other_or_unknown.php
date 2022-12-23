@@ -168,7 +168,7 @@ class check_other_or_unknown implements ValidationsImplementation
                 // Adding : Intrument Name, instrument
 
 
-                $label = TextBreak($list[1]);
+                $label = Validations::TextBreak($list[1]);
 
 
                 array_push($to_fix_array, array(\REDCap::getInstrumentNames($list[0]), $list[1], $label, $list[3], $link_to_edit));

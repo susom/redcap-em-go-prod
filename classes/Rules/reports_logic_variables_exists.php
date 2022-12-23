@@ -11,7 +11,7 @@ class reports_logic_variables_exists implements ValidationsImplementation
     public $break = false;
 
     public $modalTableHeader = array("Report Name", "Report ID", "Missing Variable", "Edit");
-    public $inconsistentDates = [];
+    public $inconsistentVariables = [];
 
     public $dataDictionary = [];
 
@@ -58,9 +58,8 @@ class reports_logic_variables_exists implements ValidationsImplementation
                 array_push($var, array($variable[0], $variable[1], '<strong style="color: red">[' . $variable[2] . ']</strong>', $link_to_edit));
             }
         }
-        $this->inconsistentDates = $var;
-        if (!empty($array)) {
-            $this->inconsistentDates = $array;
+        $this->inconsistentVariables = $var;
+        if (!empty($this->inconsistentVariables)) {
             return false;
         }
         return true;
@@ -76,7 +75,7 @@ class reports_logic_variables_exists implements ValidationsImplementation
             'title' => $this->getNotifications()['REPORTS_LOGIC_TITLE'],
             'body' => $this->getNotifications()['REPORTS_LOGIC_BODY'],
             'type' => $this->getNotifications()['WARNING'],
-            'modal' => $this->inconsistentDates,
+            'modal' => $this->inconsistentVariables,
             'modalHeader' => $this->modalTableHeader,
             'links' => array(),
         );

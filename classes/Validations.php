@@ -266,16 +266,17 @@ class Validations
         return $var;
     }
 
-        public static function TransformCheckBoxField($field___format){
+    public static function TransformCheckBoxField($field___format)
+    {
 
-         // check if is a negative code for example var(-2)
-        if(strpos( trim($field___format),  "____" ) !== false){
+        // check if is a negative code for example var(-2)
+        if (strpos(trim($field___format), "____") !== false) {
             $number = substr(trim($field___format), strpos($field___format, "____") + 4);
             //echo $number;
-            $underscore="____".$number;
-            $parenthesis="(-".$number.")";
+            $underscore = "____" . $number;
+            $parenthesis = "(-" . $number . ")";
 
-        }else {
+        } else {
             $number = substr(trim($field___format), strpos($field___format, "___") + 3);
             //echo $number;
             $underscore = "___" . $number;
@@ -283,30 +284,44 @@ class Validations
         }
 
 
-        $parenthesis_format = str_replace($underscore,$parenthesis, $field___format);
+        $parenthesis_format = str_replace($underscore, $parenthesis, $field___format);
 
 
         return $parenthesis_format;
     }
 
-        /**
+    /**
      * @param $DataDictionary
      * @return array
      *
      * Extract the Calculated fields
      */
-    public static function getCalculatedFields(){
-        $var= array();
+    public static function getCalculatedFields()
+    {
+        $var = array();
         // Loop through each field and do something with each
-        foreach (\REDCap::getDataDictionary('array') as $field_name=>$field_attributes){
+        foreach (\REDCap::getDataDictionary('array') as $field_name => $field_attributes) {
             // Do something with this field if it is a checkbox field
-            if (strlen(trim($field_attributes['select_choices_or_calculations']))>0  and $field_attributes['field_type'] == 'calc' ) {
+            if (strlen(trim($field_attributes['select_choices_or_calculations'])) > 0 and $field_attributes['field_type'] == 'calc') {
                 $FormName = $field_attributes['form_name'];
                 $FieldName = $field_attributes['field_name'];
                 $Calculation = $field_attributes['select_choices_or_calculations'];
-                array_push( $var, Array($FormName,$FieldName,$Calculation));
+                array_push($var, array($FormName, $FieldName, $Calculation));
             }
         }
         return $var;
+    }
+
+    public static function TextBreak($question_variable)
+    {
+        global $Proj;
+        // Adding : Intrument Name, instrument
+
+        $label1 = $Proj->metadata[$question_variable];
+        $label1 = $label1['element_label'];
+        $label1 = REDCap::filterHtml($label1);
+        $label1 = wordwrap($label1, 30, "<br />");
+
+        return $label1;
     }
 }

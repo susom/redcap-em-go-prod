@@ -42,7 +42,7 @@ class check_presence_of_calculated_fields implements ValidationsImplementation
         $fields= Validations::AddCheckBoxes($fields);//adding the extra Checkbox variables
         foreach ($calculated_fields_array as $variable){
             if(!in_array($variable[2],$fields) && strpos($variable[2],"-") === false){
-                $label=TextBreak($variable[1]);
+                $label = Validations::TextBreak($variable[1]);
                 $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . $this->getProject()->project_id .
                     '&page=' . $variable[0] . '&field=' . $variable[1];
                 $link_to_edit='<a href='.$link_path.' target="_blank" ><img src='.APP_PATH_IMAGES.'pencil.png></a>';
