@@ -141,8 +141,10 @@ export default {
       if (key === 'ALL_VALIDATIONS') {
         this.showLoaderIcon = value
       } else {
-        this.rulesArray[key]['loader'] = value
-        this.$forceUpdate();
+        if (key in this.rulesArray) {
+          this.rulesArray[key]['loader'] = value
+          this.$forceUpdate();
+        }
       }
     },
     validate: function (action) {
