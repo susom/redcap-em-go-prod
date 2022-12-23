@@ -59,7 +59,7 @@ class are_dates_consistent implements ValidationsImplementation
 
     public function FindDateConsistencyProblems($array)
     {
-        $pid = filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+        $pid = $this->getProject()->project_id;
         $FilteredOut = array();
         foreach ($array as $item1) {
             foreach ($array as $item2) {

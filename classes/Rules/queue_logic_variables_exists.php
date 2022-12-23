@@ -124,7 +124,7 @@ class queue_logic_variables_exists implements ValidationsImplementation
                           redcap_metadata rm
                         WHERE
                           rm.project_id = rs.project_id
-                      ) and rs.project_id =" . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+                      ) and rs.project_id =" . $this->getProject()->project_id;
 
         $result = db_query($sql);
         while ($query_res = db_fetch_assoc($result)) {

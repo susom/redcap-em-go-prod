@@ -42,7 +42,7 @@ class asi_logic_variables_exists implements ValidationsImplementation
                 if (!$event) {
                     $event = '-';
                 }
-                $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+                $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . $this->getProject()->project_id;
                 $link_to_edit = '<a href=' . $link_path . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'pencil.png></a>';
                 array_push($var, array(\REDCap::getInstrumentNames($variable[0]), $event, '<strong style="color: red">[' . $variable[2] . ']</strong>', $link_to_edit));
             }
@@ -91,7 +91,7 @@ class asi_logic_variables_exists implements ValidationsImplementation
                 FROM 
 	              redcap_surveys as SRV, redcap_surveys_scheduler as RSS 
                 WHERE
-	               RSS.condition_logic IS NOT NULL and RSS.active=1 and SRV.survey_id=RSS.survey_id and SRV.project_id=" . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+	               RSS.condition_logic IS NOT NULL and RSS.active=1 and SRV.survey_id=RSS.survey_id and SRV.project_id=" . $this->getProject()->project_id;
         $result = db_query($sql);
         while ($query_res = db_fetch_assoc($result)) {
             array_push($var, array($query_res['form'], $query_res['event_id'], $query_res['logic']));

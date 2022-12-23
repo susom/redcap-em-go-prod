@@ -149,7 +149,7 @@ class check_other_or_unknown implements ValidationsImplementation
     {
 
         global $Proj;
-        $pid = filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+        $pid = $this->getProject()->project_id;
         $to_fix_array = array();
         $IdsList = explode(",", $Ids);
         foreach ($array as $list) {

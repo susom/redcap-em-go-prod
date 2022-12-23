@@ -41,7 +41,7 @@ class data_quality_logic_variables_exists implements ValidationsImplementation
         $fields = Validations::AddCheckBoxes($fields);//adding the extra Checkbox variables
         foreach ($logic_fields_array as $variable) {
             if (!in_array($variable[2], $fields)) {
-                $link_path = APP_PATH_WEBROOT . 'DataQuality/index.php?pid=' . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT);
+                $link_path = APP_PATH_WEBROOT . 'DataQuality/index.php?pid=' . $this->getProject()->project_id;
                 $link_to_edit = '<a href=' . $link_path . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'pencil.png></a>';
                 array_push($var, array($variable[0], $variable[1], '<strong style="color: red">[' . $variable[2] . ']</strong>', $link_to_edit));
             }

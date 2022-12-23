@@ -36,8 +36,8 @@ class check_test_records_and_export implements ValidationsImplementation
         $export_data_array=Array(Validations::CleanString('Export data'),Validations::CleanString('Export data (API Playground)'),Validations::CleanString( 'Export data (API)'),Validations::CleanString('Export data (CSV raw with return codes)'));
         $count_records=0;
         $count_exports=0;
-        $total= Array();
-        $pid = filter_var($_GET['pid'],FILTER_SANITIZE_NUMBER_INT);
+        $total = array();
+        $pid = $this->getProject()->project_id;
         $sql = "SELECT description FROM redcap_log_event  where project_id=$pid
                 UNION All
                 SELECT description FROM redcap_log_event2 where project_id=$pid

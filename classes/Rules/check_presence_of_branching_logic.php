@@ -95,7 +95,7 @@ class check_presence_of_branching_logic implements ValidationsImplementation
                 $label = TextBreak($variable[1]);
 
 
-                $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . filter_var($_GET['pid'], FILTER_SANITIZE_NUMBER_INT) .
+                $link_path = APP_PATH_WEBROOT . 'Design/online_designer.php?pid=' . $this->getProject()->project_id .
                     '&page=' . $variable[0] . '&field=' . $variable[1] . '&branching=1';
                 $link_to_edit = '<a href=' . $link_path . ' target="_blank" ><img src=' . APP_PATH_IMAGES . 'arrow_branch_side.png></a>';
 
