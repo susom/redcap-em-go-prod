@@ -28,6 +28,7 @@ class is_rma_exists implements ValidationsImplementation
 
     public function validate(): bool
     {
+
         /** @var \Stanford\ProjectPortal\ProjectPortal $rma */
         $rma = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
         $rma->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);

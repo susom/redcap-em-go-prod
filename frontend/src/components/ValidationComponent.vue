@@ -84,6 +84,36 @@
       </table>
     </div>
 
+    <div v-if="showSuccessContainer === true" class="col-12">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h5 class="list-group-item-heading"><span v-html="notifications['INFO_WHAT_NETX']"></span></h5>
+          <p class="list-group-item-text"><span v-html="notifications['INFO_WHAT_NETX_BODY']"></span></p>
+          <p class="list-group-item-text"><span v-html="notifications['INFO_WHAT_NETX_BODY_2']"></span></p>
+        </li>
+      </ul>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h5 class="list-group-item-heading"><span v-html="notifications['INFO_CITATION']"></span></h5>
+          <p class="list-group-item-text"><span v-html="notifications['INFO_CITATION_BODY']"></span></p>
+        </li>
+
+        <li class="list-group-item">
+          <h5 class="list-group-item-heading"><span v-html="notifications['INFO_STATISTICIAN_REVIEW']"></span></h5>
+          <p class="list-group-item-text"><span v-html="notifications['INFO_STATISTICIAN_REVIEW_BODY']"></span></p>
+        </li>
+      </ul>
+
+
+      <div class="col-md-12 col-sm-6 col-xs-12 col-lg-12 text-center well">
+        <h5>
+          <span v-html="notifications['I_AGREE_BODY']"></span>
+        </h5> <br>
+        <button id="go_prod_accept_all" class=" btn btn-md btn-success text-center "> {{ notifications['I_AGREE'] }}
+        </button>
+      </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="ruleModal" ref="ruleModal" tabindex="-1" aria-labelledby="ruleModalLabel"
          aria-hidden="true">
@@ -138,6 +168,9 @@ export default {
       this.$forceUpdate();
     },
     showLoader: function (key, value) {
+      if (value === true) {
+        this.showSuccessContainer = false
+      }
       if (key === 'ALL_VALIDATIONS') {
         this.showLoaderIcon = value
       } else {
@@ -155,7 +188,7 @@ export default {
         console.log("ajax complete", response);
         if (response != undefined) {
           obj.showErrorContainer = true
-
+          obj.dangerErrorsCount = 0
           for (var key in response) {
             if (typeof response[key] === "object") {
 
@@ -165,7 +198,9 @@ export default {
               obj.rulesArray[key]['loader'] = false
               obj.rulesArray[key]['show'] = true
               obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase()
-
+              if (response[key]['type'].toLowerCase() == 'danger') {
+                obj.dangerErrorsCount++
+              }
             } else {
               // if rule was failing then succeeded remove it from rules list.
               if (key in obj.rulesArray) {
@@ -179,6 +214,9 @@ export default {
           }
         }
         obj.showLoader(action, false)
+        if (obj.dangerErrorsCount === 0) {
+          obj.showSuccessContainer = true
+        }
       }).catch(function (err) {
         obj.showAlert = true
         obj.alertMessage = err
@@ -198,6 +236,8 @@ export default {
       showAlert: false,
       showLoaderIcon: false,
       showErrorContainer: false,
+      showSuccessContainer: false,
+      dangerErrorsCount: null,
       modal: null,
       alertMessage: '',
       alertVariant: 'alert-danger'
