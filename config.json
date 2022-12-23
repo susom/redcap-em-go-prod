@@ -195,6 +195,12 @@
       "name": "Check Very few validated text fields.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "queue_logic_variables_exists",
+      "name": "Problems found in the Survey Queue logic.<div class='badge badge-danger'>(DANGER)</div>",
+      "required": false,
+      "type": "checkbox"
     }
   ],
   "crons": [
