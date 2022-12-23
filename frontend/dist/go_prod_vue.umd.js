@@ -1814,8 +1814,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=2d64cfb1&scoped=true&
-var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=4ae700cc&scoped=true&
+var ValidationComponentvue_type_template_id_4ae700cc_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -1834,13 +1834,15 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render = functi
   }, [_c('p', {
     staticClass: "alert",
     class: _vm.alertVariant
-  }, [_vm._v(_vm._s(_vm.alertMessage))])]) : _vm._e()]), _c('hr'), _vm.showErrorContainer === true ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.alertMessage))])]) : _vm._e()]), _c('hr'), _vm.showLoaderIcon === true ? _c('div', {
+    staticClass: "row"
+  }, [_vm._m(0)]) : _vm._e(), !_vm.showLoaderIcon === true && _vm.showErrorContainer === true ? _c('div', {
     staticClass: "col-12"
   }, [_c('table', {
     staticClass: "table table-striped"
-  }, [_vm._m(0), _c('tbody', _vm._l(_vm.rulesArray, function (rule) {
+  }, [_vm._m(1), _c('tbody', _vm._l(_vm.rulesArray, function (rule, i) {
     return _c('tr', {
-      key: rule.name
+      key: i
     }, [_c('td', {
       staticClass: "gp-info-content"
     }, [_c('div', {
@@ -1849,13 +1851,28 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render = functi
       domProps: {
         "innerHTML": _vm._s(rule.title)
       }
-    }), _vm._m(1, true)])]), _c('div', {
+    }), _c('span', {
+      staticClass: "title-text-plus",
+      staticStyle: {
+        "color": "#5492a3"
+      }
+    }, [_c('small', {
+      on: {
+        "click": function ($event) {
+          return _vm.showDetails(i);
+        }
+      }
+    }, [_vm._v("(" + _vm._s(rule.showText) + ")")])])])]), _c('transition', {
+      attrs: {
+        "name": "fade"
+      }
+    }, [rule.show === true ? _c('div', {
       staticClass: "gp-body-content"
     }, [_c('p', [_c('span', {
       domProps: {
         "innerHTML": _vm._s(rule.body)
       }
-    })])])]), _c('td', [_c('h6', [_c('span', {
+    })])]) : _vm._e()])], 1), _c('td', [_c('h6', [_c('span', {
       staticClass: "badge",
       class: rule.badge
     }, [_vm._v(_vm._s(rule.type))])])]), _c('td', [_vm._l(rule.links, function (link) {
@@ -1885,14 +1902,21 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render = functi
           return _vm.viewModal(rule);
         }
       }
-    }, [_vm._v(_vm._s(_vm.notifications['VIEW']))])]) : _vm._e()], 2), _c('td', [_c('button', {
+    }, [_vm._v(_vm._s(_vm.notifications['VIEW']))])]) : _vm._e()], 2), _c('td', [rule.loader ? _c('div', {
+      staticClass: "d-flex justify-content-center"
+    }, [_c('div', {
+      staticClass: "spinner-border",
+      attrs: {
+        "role": "status"
+      }
+    })]) : _vm._e(), !rule.loader ? _c('button', {
       staticClass: "btn btn-sm btn-outline-primary text-center",
       on: {
         "click": function ($event) {
           return _vm.validate(rule.name);
         }
       }
-    }, [_vm._v(" " + _vm._s(_vm.notifications.RELOAD) + " ")])])]);
+    }, [_vm._v(" " + _vm._s(_vm.notifications.RELOAD) + " ")]) : _vm._e()])]);
   }), 0)])]) : _vm._e(), _c('div', {
     ref: "ruleModal",
     staticClass: "modal fade",
@@ -1937,11 +1961,24 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render = functi
         attrs: {
           "data-column": "{{column}}"
         }
-      }, [_vm._v(_vm._s(item[indexColumn]))]);
+      }, [_vm._v(_vm._s(item[indexColumn]) + " ")]);
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_4ae700cc_scoped_true_staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "d-flex justify-content-center"
+  }, [_c('div', {
+    staticClass: "spinner-border",
+    attrs: {
+      "role": "status"
+    }
+  })])]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('thead', [_c('tr', [_c('th', [_c('h6', {
@@ -1951,15 +1988,6 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_staticRenderFns
   }, [_vm._v("Type")])]), _c('th', [_c('h6', {
     staticClass: "projhdr"
   }, [_vm._v("Options")])]), _c('th')])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('span', {
-    staticClass: "title-text-plus",
-    staticStyle: {
-      "color": "#5492a3"
-    }
-  }, [_c('small', [_vm._v("(more)")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -1974,7 +2002,7 @@ var ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=2d64cfb1&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=4ae700cc&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8076,34 +8104,51 @@ defineJQueryPlugin(Toast);
 /* harmony default export */ var ValidationComponentvue_type_script_lang_js_ = ({
   name: "ValidationComponent",
   methods: {
+    showDetails: function (key) {
+      this.rulesArray[key]['show'] = !this.rulesArray[key]['show'];
+      if (this.rulesArray[key]['show']) {
+        this.rulesArray[key]['showText'] = this.notifications['LESS'];
+      } else {
+        this.rulesArray[key]['showText'] = this.notifications['MORE'];
+      }
+      this.$forceUpdate();
+    },
+    showLoader: function (key, value) {
+      if (key === 'ALL_VALIDATIONS') {
+        this.showLoaderIcon = value;
+      } else {
+        this.rulesArray[key]['loader'] = value;
+        this.$forceUpdate();
+      }
+    },
     validate: function (action) {
       var obj = this;
+      this.showLoader(action, true);
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
-        console.log("length", response.length);
         if (response != undefined) {
           obj.showErrorContainer = true;
           for (var key in response) {
             if (typeof response[key] === "object") {
               obj.rulesArray[key] = response[key];
               obj.rulesArray[key]['name'] = key;
+              obj.rulesArray[key]['showText'] = obj.notifications['LESS'];
+              obj.rulesArray[key]['loader'] = false;
+              obj.rulesArray[key]['show'] = true;
               obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase();
             } else {
               // if rule was failing then succeeded remove it from rules list.
               if (key in obj.rulesArray) {
                 var temp = obj.rulesArray;
-                console.log(temp);
-                console.log(temp);
                 obj.rulesArray = {};
                 delete temp[key];
-                console.log(temp);
                 obj.rulesArray = temp;
               }
             }
-            console.log(obj.rulesArray);
           }
         }
+        obj.showLoader(action, false);
       }).catch(function (err) {
         obj.showAlert = true;
         obj.alertMessage = err;
@@ -8121,6 +8166,7 @@ defineJQueryPlugin(Toast);
       rulesArray: {},
       modalObject: {},
       showAlert: false,
+      showLoaderIcon: false,
       showErrorContainer: false,
       modal: null,
       alertMessage: '',
@@ -8143,11 +8189,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_render,
-  ValidationComponentvue_type_template_id_2d64cfb1_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_4ae700cc_scoped_true_render,
+  ValidationComponentvue_type_template_id_4ae700cc_scoped_true_staticRenderFns,
   false,
   null,
-  "2d64cfb1",
+  "4ae700cc",
   null
   
 )

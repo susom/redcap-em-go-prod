@@ -12,7 +12,16 @@
       </div>
     </div>
     <hr>
-    <div v-if="showErrorContainer === true" class="col-12">
+    <div class="row" v-if="showLoaderIcon === true">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="!showLoaderIcon === true && showErrorContainer === true" class="col-12">
       <table class="table table-striped">
         <thead>
         <tr>
@@ -23,20 +32,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="rule in rulesArray" :key="rule.name">
+        <tr v-for="(rule, i) in rulesArray" :key="i">
           <td class="gp-info-content">
             <div class="gp-title-content">
               <strong>
                 <span v-html="rule.title"></span><span class="title-text-plus"
-                                                       style="color: #5492a3"><small>(more)</small></span>
+                                                       style="color: #5492a3"><small
+                  v-on:click="showDetails(i)">({{ rule.showText }})</small></span>
               </strong>
             </div>
-
-            <div class="gp-body-content">
-              <p>
-                <span v-html="rule.body"></span>
-              </p>
-            </div>
+            <transition name="fade">
+              <div class="gp-body-content" v-if="rule.show === true">
+                <p>
+                  <span v-html="rule.body"></span>
+                </p>
+              </div>
+            </transition>
           </td>
           <td>
             <h6><span :class="rule.badge" class="badge">{{ rule.type }}</span></h6>
@@ -53,11 +64,18 @@
               <span v-html="rule.extra"></span>
             </div>
             <div v-if="'modal' in rule">
-              <a href="#" @click="viewModal(rule)" class="btn btn-sm btn-secondary text-center">{{ notifications['VIEW'] }}</a>
+              <a href="#" @click="viewModal(rule)" class="btn btn-sm btn-secondary text-center">{{
+                  notifications['VIEW']
+                }}</a>
             </div>
           </td>
           <td>
-            <button class="btn btn-sm btn-outline-primary text-center" @click="validate(rule.name)">
+            <div v-if="rule.loader" class="d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+
+              </div>
+            </div>
+            <button v-if="!rule.loader" class="btn btn-sm btn-outline-primary text-center" @click="validate(rule.name)">
               {{ notifications.RELOAD }}
             </button>
           </td>
@@ -85,9 +103,11 @@
               </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in modalObject.modal" :key="index">
-                    <td v-for="(column, indexColumn) in modalObject.modalHeader" :key="indexColumn" data-column="{{column}}">{{item[indexColumn]}}</td>
-                </tr>
+              <tr v-for="(item, index) in modalObject.modal" :key="index">
+                <td v-for="(column, indexColumn) in modalObject.modalHeader" :key="indexColumn"
+                    data-column="{{column}}">{{ item[indexColumn] }}
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
@@ -107,8 +127,27 @@ import {Modal} from 'bootstrap'
 export default {
   name: "ValidationComponent",
   methods: {
+    showDetails: function (key) {
+
+      this.rulesArray[key]['show'] = !this.rulesArray[key]['show'];
+      if (this.rulesArray[key]['show']) {
+        this.rulesArray[key]['showText'] = this.notifications['LESS']
+      } else {
+        this.rulesArray[key]['showText'] = this.notifications['MORE']
+      }
+      this.$forceUpdate();
+    },
+    showLoader: function (key, value) {
+      if (key === 'ALL_VALIDATIONS') {
+        this.showLoaderIcon = value
+      } else {
+        this.rulesArray[key]['loader'] = value
+        this.$forceUpdate();
+      }
+    },
     validate: function (action) {
       var obj = this
+      this.showLoader(action, true)
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
@@ -120,6 +159,9 @@ export default {
 
               obj.rulesArray[key] = response[key]
               obj.rulesArray[key]['name'] = key
+              obj.rulesArray[key]['showText'] = obj.notifications['LESS']
+              obj.rulesArray[key]['loader'] = false
+              obj.rulesArray[key]['show'] = true
               obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase()
 
             } else {
@@ -128,14 +170,13 @@ export default {
                 var temp = obj.rulesArray
                 obj.rulesArray = {}
                 delete temp[key]
-                console.log(temp)
                 obj.rulesArray = temp
               }
             }
 
-            console.log(obj.rulesArray)
           }
         }
+        obj.showLoader(action, false)
       }).catch(function (err) {
         obj.showAlert = true
         obj.alertMessage = err
@@ -143,16 +184,17 @@ export default {
       });
     },
     viewModal: function (rule) {
-        this.modalObject = rule
-        this.modal.show()
+      this.modalObject = rule
+      this.modal.show()
     }
   },
   data() {
     return {
       notifications: window.notifications,
       rulesArray: {},
-      modalObject : {},
+      modalObject: {},
       showAlert: false,
+      showLoaderIcon: false,
       showErrorContainer: false,
       modal: null,
       alertMessage: '',
