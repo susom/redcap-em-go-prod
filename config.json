@@ -25,7 +25,8 @@
     "check_presence_of_calculated_fields",
     "data_quality_logic_variables_exists",
     "forms_with_too_many_fields",
-    "identifier_exists"
+    "identifier_exists",
+    "minimum_of_validated_fields"
   ],
   "no-auth-ajax-actions": [
     "ALL_VALIDATIONS",
@@ -47,7 +48,8 @@
     "check_presence_of_calculated_fields",
     "data_quality_logic_variables_exists",
     "forms_with_too_many_fields",
-    "identifier_exists"
+    "identifier_exists",
+    "minimum_of_validated_fields"
   ],
   "authors": [
     {
@@ -185,6 +187,12 @@
     {
       "key": "identifier_exists",
       "name": "Check if a field is defined as a identifier.<div class='badge badge-warning'>(WARNING)</div>",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "minimum_of_validated_fields",
+      "name": "Check Very few validated text fields.<div class='badge badge-warning'>(WARNING)</div>",
       "required": false,
       "type": "checkbox"
     }
