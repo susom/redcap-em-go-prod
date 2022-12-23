@@ -198,7 +198,9 @@ export default {
               obj.rulesArray[key]['loader'] = false
               obj.rulesArray[key]['show'] = true
               obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase()
-              if (response[key]['type'].toLowerCase() == 'danger') {
+
+              // if this error increase counter
+              if (response[key]['type'].toLowerCase() === 'danger') {
                 obj.dangerErrorsCount++
               }
             } else {
@@ -214,6 +216,8 @@ export default {
           }
         }
         obj.showLoader(action, false)
+
+        // if no danger errors display success container.
         if (obj.dangerErrorsCount === 0) {
           obj.showSuccessContainer = true
         }
