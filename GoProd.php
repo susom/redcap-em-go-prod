@@ -71,20 +71,31 @@ class GoProd extends \ExternalModules\AbstractExternalModule
         $this->getValidations()->setEnabledRules($rules);
     }
 
+    public function redcap_every_page_top(int $project_id)
+    {
+        if (PAGE == 'ProjectSetup/index.php') {
+            $this->includeFile('pages/project_setup.php');
+        }
+    }
+
     public function redcap_module_ajax($action, $payload, $project_id, $record, $instrument, $event_id, $repeat_instance,
                                        $survey_hash, $response_id, $survey_queue_hash, $page, $page_full, $user_id, $group_id)
     {
         if ($action == self::ALL_VALIDATIONS) {
             $result = [];
             foreach ($this->getValidations()->getEnabledRules() as $name => $validation) {
+                // IF RULE CLASS DID NOT IMPLEMENT ValidationsImplementation IGNORE IT
+                if (!$validation instanceof ValidationsImplementation) {
+                    continue;
+                }
                 if (!$validation->validate()) {
                     // if rule requires to break the loop and returns only results of this rule.
-                    if($validation->break){
+                    if ($validation->break) {
                         return array($name => $validation->getErrorMessage());
-                    }else{
+                    } else {
                         $result[$name] = $validation->getErrorMessage();
                     }
-                }else{
+                } else {
                     $result[$name] = true;
                 }
             }
@@ -94,12 +105,20 @@ class GoProd extends \ExternalModules\AbstractExternalModule
             if (!$validation->validate()) {
 
                 return array($action => $validation->getErrorMessage());
-            }else{
+            } else {
                 return array($action => true);
             }
         } else {
             throw new \Exception("Action  $action is not defined");
         }
+    }
+
+    /**
+     * @param string $path
+     */
+    public function includeFile($path)
+    {
+        include_once $path;
     }
 
     /**

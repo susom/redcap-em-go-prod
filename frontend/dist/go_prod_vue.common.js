@@ -1804,8 +1804,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=38a4d00e&scoped=true&
-var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=13898f5b&scoped=true&
+var ValidationComponentvue_type_template_id_13898f5b_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -1814,6 +1814,9 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = functi
     staticClass: "col-12"
   }, [_c('button', {
     staticClass: "btn btn-md btn-primary btn-block",
+    attrs: {
+      "disabled": _vm.buttonDisabled
+    },
     on: {
       "click": function ($event) {
         return _vm.validate('ALL_VALIDATIONS');
@@ -1892,7 +1895,11 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = functi
           return _vm.viewModal(rule);
         }
       }
-    }, [_vm._v(_vm._s(_vm.notifications['VIEW']))])]) : _vm._e()], 2), _c('td', [rule.loader ? _c('div', {
+    }, [_vm._v(_vm._s(_vm.notifications['VIEW']))])]) : _vm._e()], 2), _c('td', [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col text-center"
+    }, [rule.loader ? _c('div', {
       staticClass: "d-flex justify-content-center"
     }, [_c('div', {
       staticClass: "spinner-border",
@@ -1906,7 +1913,7 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = functi
           return _vm.validate(rule.name);
         }
       }
-    }, [_vm._v(" " + _vm._s(_vm.notifications.RELOAD) + " ")]) : _vm._e()])]);
+    }, [_vm._v(" " + _vm._s(_vm.notifications.RELOAD) + " ")]) : _vm._e()])])])]);
   }), 0)])]) : _vm._e(), _vm.showSuccessContainer === true ? _c('div', {
     staticClass: "col-12"
   }, [_c('ul', {
@@ -1967,10 +1974,10 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = functi
     domProps: {
       "innerHTML": _vm._s(_vm.notifications['I_AGREE_BODY'])
     }
-  })]), _vm._v(" "), _c('br'), _c('button', {
+  })]), _vm._v(" "), _c('br'), _c('a', {
     staticClass: "btn btn-md btn-success text-center",
     attrs: {
-      "id": "go_prod_accept_all"
+      "href": _vm.productionURL
     }
   }, [_vm._v(" " + _vm._s(_vm.notifications['I_AGREE']) + " ")])])]) : _vm._e(), _c('div', {
     ref: "ruleModal",
@@ -2020,7 +2027,7 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render = functi
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2057,7 +2064,7 @@ var ValidationComponentvue_type_template_id_38a4d00e_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=38a4d00e&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=13898f5b&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8184,6 +8191,7 @@ defineJQueryPlugin(Toast);
     validate: function (action) {
       var obj = this;
       this.showLoader(action, true);
+      this.buttonDisabled = true;
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
@@ -8198,7 +8206,9 @@ defineJQueryPlugin(Toast);
               obj.rulesArray[key]['loader'] = false;
               obj.rulesArray[key]['show'] = true;
               obj.rulesArray[key]['badge'] = 'badge-' + response[key]['type'].toLowerCase();
-              if (response[key]['type'].toLowerCase() == 'danger') {
+
+              // if this error increase counter
+              if (response[key]['type'].toLowerCase() === 'danger') {
                 obj.dangerErrorsCount++;
               }
             } else {
@@ -8213,13 +8223,17 @@ defineJQueryPlugin(Toast);
           }
         }
         obj.showLoader(action, false);
+
+        // if no danger errors display success container.
         if (obj.dangerErrorsCount === 0) {
           obj.showSuccessContainer = true;
         }
+        obj.buttonDisabled = false;
       }).catch(function (err) {
         obj.showAlert = true;
         obj.alertMessage = err;
         console.log(err);
+        obj.buttonDisabled = false;
       });
     },
     viewModal: function (rule) {
@@ -8230,12 +8244,14 @@ defineJQueryPlugin(Toast);
   data() {
     return {
       notifications: window.notifications,
+      productionURL: window.productionURL,
       rulesArray: {},
       modalObject: {},
       showAlert: false,
       showLoaderIcon: false,
       showErrorContainer: false,
       showSuccessContainer: false,
+      buttonDisabled: false,
       dangerErrorsCount: null,
       modal: null,
       alertMessage: '',
@@ -8258,11 +8274,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_38a4d00e_scoped_true_render,
-  ValidationComponentvue_type_template_id_38a4d00e_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_13898f5b_scoped_true_render,
+  ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns,
   false,
   null,
-  "38a4d00e",
+  "13898f5b",
   null
   
 )

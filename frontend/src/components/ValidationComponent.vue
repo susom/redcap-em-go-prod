@@ -2,7 +2,8 @@
   <div>
     <div class="row">
       <div v-if="showAlert === false" class="col-12">
-        <button @click="validate('ALL_VALIDATIONS')" class="btn btn-md btn-primary btn-block">{{
+        <button :disabled="buttonDisabled" @click="validate('ALL_VALIDATIONS')"
+                class="btn btn-md btn-primary btn-block">{{
             notifications.RUN
           }}
         </button>
@@ -70,14 +71,19 @@
             </div>
           </td>
           <td>
-            <div v-if="rule.loader" class="d-flex justify-content-center">
-              <div class="spinner-border" role="status">
-
+            <div class="row">
+              <div class="col text-center">
+                <div v-if="rule.loader" class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                  </div>
+                </div>
+                <button v-if="!rule.loader" class="btn btn-sm btn-outline-primary text-center"
+                        @click="validate(rule.name)">
+                  {{ notifications.RELOAD }}
+                </button>
               </div>
             </div>
-            <button v-if="!rule.loader" class="btn btn-sm btn-outline-primary text-center" @click="validate(rule.name)">
-              {{ notifications.RELOAD }}
-            </button>
+
           </td>
         </tr>
         </tbody>
@@ -109,8 +115,8 @@
         <h5>
           <span v-html="notifications['I_AGREE_BODY']"></span>
         </h5> <br>
-        <button id="go_prod_accept_all" class=" btn btn-md btn-success text-center "> {{ notifications['I_AGREE'] }}
-        </button>
+        <a :href="productionURL" class=" btn btn-md btn-success text-center "> {{ notifications['I_AGREE'] }}
+        </a>
       </div>
     </div>
 
@@ -183,6 +189,7 @@ export default {
     validate: function (action) {
       var obj = this
       this.showLoader(action, true)
+      this.buttonDisabled = true;
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
@@ -221,10 +228,12 @@ export default {
         if (obj.dangerErrorsCount === 0) {
           obj.showSuccessContainer = true
         }
+        obj.buttonDisabled = false;
       }).catch(function (err) {
         obj.showAlert = true
         obj.alertMessage = err
         console.log(err)
+        obj.buttonDisabled = false;
       });
     },
     viewModal: function (rule) {
@@ -235,12 +244,14 @@ export default {
   data() {
     return {
       notifications: window.notifications,
+      productionURL: window.productionURL,
       rulesArray: {},
       modalObject: {},
       showAlert: false,
       showLoaderIcon: false,
       showErrorContainer: false,
       showSuccessContainer: false,
+      buttonDisabled: false,
       dangerErrorsCount: null,
       modal: null,
       alertMessage: '',

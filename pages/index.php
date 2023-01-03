@@ -26,6 +26,7 @@ print loadJS('vue/vue-factory/dist/js/app.js');
 <script src="<?php echo $module->getUrl("frontend/dist/go_prod_vue.umd.js") ?>"></script>
 <div id="go_prod_vue"></div>
 <script>
+    window.productionURL = <?php  echo json_encode(APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $module->getProjectId() . '&to_prod_plugin=1')?>;
     window.module = <?=$module->getJavascriptModuleObjectName()?>;
     window.notifications = <?php echo json_encode($module->getNotifications()) ?>;
     window.addEventListener('DOMContentLoaded', function (event) {
