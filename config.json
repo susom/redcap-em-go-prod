@@ -30,31 +30,6 @@
     "reports_logic_variables_exists",
     "today_exists_in_calculations"
   ],
-  "no-auth-ajax-actions": [
-    "ALL_VALIDATIONS",
-    "just_for_fun_project",
-    "is_research_project",
-    "is_pi_exists",
-    "is_irb_exists",
-    "has_r2p2_project",
-    "is_rma_exists",
-    "check_test_records_and_export",
-    "check_un_designated_longitudinal_forms",
-    "are_dates_consistent",
-    "are_positive_negative_consistent",
-    "are_yes_no_consistent",
-    "asi_logic_variables_exists",
-    "check_my_first_instrument_presence",
-    "check_other_or_unknown",
-    "check_presence_of_branching_logic",
-    "check_presence_of_calculated_fields",
-    "data_quality_logic_variables_exists",
-    "forms_with_too_many_fields",
-    "identifier_exists",
-    "minimum_of_validated_fields",
-    "reports_logic_variables_exists",
-    "today_exists_in_calculations"
-  ],
   "authors": [
     {
       "name": "Ihab Zeedia",
