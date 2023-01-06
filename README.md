@@ -45,4 +45,5 @@ Yes, This Module allows developer to add new custom rules.
 
 #### Note: Make sure to enable your rule from your REDCap control panel. By default, rules are disabled.
 
-Here is a new rule class example:  [link](https://github.com/susom/redcap-em-go-prod/tree/main/sample/)
+Here is a new rule class
+example:  [link](https://github.com/susom/redcap-em-go-prod/blob/main/sample/my_awesome_new_rule.php)
