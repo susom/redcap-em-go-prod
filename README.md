@@ -9,12 +9,12 @@ Yes, This Module allows developer to add new custom rules.
 ### How to add a new Rule?
 
 1. Create a Rule class under [Rules folder](https://github.com/susom/redcap-em-go-prod/tree/main/classes/Rules)
-2. The new class MUST implement interface `ValidationsImplementation` . *Classes not implementing the interface will be
-   ignored by the EM*.
+2. The new class MUST implement interface `ValidationsImplementation` . *(Classes not implementing the interface will be
+   ignored by the EM)*.
 3. Define your rule notifications
    in [Language folder](https://github.com/susom/redcap-em-go-prod/blob/main/language/notifications.ini)
 4. Class name must be in `snake_case` format.
-3. At least the class must has the following methods *(You can more methods if needed)*:
+3. The class must has the following methods *(You can more methods if needed)*:
     1. `getProject`
     2. `setProject`
     3. `validate`
