@@ -115,7 +115,7 @@
         <h5>
           <span v-html="notifications['I_AGREE_BODY']"></span>
         </h5> <br>
-        <a :href="productionURL" class=" btn btn-md btn-success text-center "> {{ notifications['I_AGREE'] }}
+        <a :href="productionURL" class=" btn btn-md btn-success active text-center "> {{ notifications['I_AGREE'] }}
         </a>
       </div>
     </div>
