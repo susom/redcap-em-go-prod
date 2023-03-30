@@ -38,11 +38,19 @@
     }
   ],
   "permissions": [
-    "redcap_every_page_top"
+    "redcap_every_page_top",
+    "redcap_module_link_check_display"
   ],
   "enable-every-page-hooks-on-system-pages": false,
   "links": {
     "project": [
+      {
+        "name": "TEST PAGE: Go Prod",
+        "icon": "fas fa-cog",
+        "key": "goProdAdmin",
+        "url": "pages/index.php",
+        "show-header-and-footer": true
+      }
     ],
     "control-center": [
     ]
