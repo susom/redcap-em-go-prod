@@ -98,7 +98,7 @@ class GoProd extends \ExternalModules\AbstractExternalModule
                         // rebuild url
                         $query_result = http_build_query($query);
                         header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $query_result);
-                        die();
+                        $this->exitAfterHook();
                     }
                 }
             }
