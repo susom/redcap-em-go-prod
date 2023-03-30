@@ -33,7 +33,13 @@ class is_pi_exists implements ValidationsImplementation
         $last_name = trim($this->getProject()->project['project_pi_lastname']);
         $purpose = trim($this->getProject()->project['purpose']);
         if (isset($purpose) and isset($last_name) and isset($first_name)) {
-            return $purpose === "2" and strlen($first_name) > 0 and strlen($last_name) > 0 ? true : false;
+            // if research project
+            if ($purpose === "2") {
+                return strlen($first_name) > 0 and strlen($last_name) > 0 ? true : false;
+                // any other than research except just_for_fun
+            } elseif ($purpose !== "0") {
+                return true;
+            }
         }
         return false;
     }

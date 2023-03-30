@@ -9,7 +9,7 @@ class is_irb_exists implements ValidationsImplementation
 
     private $notifications = [];
 
-    public $break=false;
+    public $break = false;
 
     public function __constructor($project, $notifications)
     {
@@ -31,7 +31,10 @@ class is_irb_exists implements ValidationsImplementation
     {
         $purpose = trim($this->getProject()->project['purpose']);
         $irb_number = $this->getProject()->project['project_irb_number'];
-        return $purpose === "2" and strlen(trim($irb_number)) > 0 ? true : false;
+        if ($purpose === "2") {
+            return strlen(trim($irb_number)) > 0 ? true : false;
+        }
+        return $purpose !== "0" ? true : false;
     }
 
     public function getErrorMessage()
@@ -42,7 +45,7 @@ class is_irb_exists implements ValidationsImplementation
             'type' => $this->getNotifications()['DANGER'],
             'links' => array(
                 array(
-                    'url' => APP_PATH_WEBROOT.'ProjectSetup/index.php?pid='.$this->getProject()->project_id,
+                    'url' => APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $this->getProject()->project_id,
                     'title' => $this->getNotifications()['PROJECT_SETUP']
                 )
             ),

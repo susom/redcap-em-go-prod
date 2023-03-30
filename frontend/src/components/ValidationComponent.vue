@@ -65,7 +65,7 @@
               <span v-html="rule.extra"></span>
             </div>
             <div v-if="'modal' in rule">
-              <a href="#" @click="viewModal(rule)" class="btn btn-sm btn-secondary text-center">{{
+              <a href="#" @click="viewModal(rule)" class="btn active btn-sm btn-secondary text-center">{{
                   notifications['VIEW']
                 }}</a>
             </div>
@@ -148,7 +148,7 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn active btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -189,13 +189,12 @@ export default {
     validate: function (action) {
       var obj = this
       this.showLoader(action, true)
-      this.buttonDisabled = true;
+      console.log('Count before: ' + obj.dangerErrorsCount)
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
         if (response != undefined) {
           obj.showErrorContainer = true
-          obj.dangerErrorsCount = 0
           for (var key in response) {
             if (typeof response[key] === "object") {
 
@@ -211,12 +210,14 @@ export default {
                 obj.dangerErrorsCount++
               }
             } else {
-              // if rule was failing then succeeded remove it from rules list.
+              // if failed rule succeeded remove it from rules list.
               if (key in obj.rulesArray) {
                 var temp = obj.rulesArray
                 obj.rulesArray = {}
                 delete temp[key]
                 obj.rulesArray = temp
+                obj.dangerErrorsCount--
+                console.log('Count after fix error: ' + obj.dangerErrorsCount)
               }
             }
 
@@ -227,6 +228,7 @@ export default {
         // if no danger errors display success container.
         if (obj.dangerErrorsCount === 0) {
           obj.showSuccessContainer = true
+          console.log('Count after: ' + obj.dangerErrorsCount)
         }
         obj.buttonDisabled = false;
       }).catch(function (err) {
@@ -252,7 +254,7 @@ export default {
       showErrorContainer: false,
       showSuccessContainer: false,
       buttonDisabled: false,
-      dangerErrorsCount: null,
+      dangerErrorsCount: 0,
       modal: null,
       alertMessage: '',
       alertVariant: 'alert-danger'

@@ -74,6 +74,21 @@ class GoProd extends \ExternalModules\AbstractExternalModule
     public function redcap_every_page_top(int $project_id)
     {
         if (PAGE == 'ProjectSetup/index.php') {
+            // final check before showing real button. in case URL was hardcoded.
+            if (isset($_GET['to_prod_plugin']) and $_GET['to_prod_plugin'] === "1") {
+                $result = $this->redcap_module_ajax(self::ALL_VALIDATIONS, [], $this->getProjectId(), '', '', '', '', '', '', '', '', '', '', '');
+                foreach ($result as $rule) {
+                    if (is_array($rule) and strtolower($rule['type']) === 'danger') {
+                        $query = $_GET;
+                        // replace parameter(s)
+                        $query['to_prod_plugin'] = '0';
+                        // rebuild url
+                        $query_result = http_build_query($query);
+                        header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $query_result);
+                        die();
+                    }
+                }
+            }
             $this->includeFile('pages/project_setup.php');
         }
     }

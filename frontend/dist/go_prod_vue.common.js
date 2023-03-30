@@ -1804,8 +1804,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=13898f5b&scoped=true&
-var ValidationComponentvue_type_template_id_13898f5b_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=47138098&scoped=true&
+var ValidationComponentvue_type_template_id_47138098_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -1886,7 +1886,7 @@ var ValidationComponentvue_type_template_id_13898f5b_scoped_true_render = functi
         "innerHTML": _vm._s(rule.extra)
       }
     })]) : _vm._e(), 'modal' in rule ? _c('div', [_c('a', {
-      staticClass: "btn btn-sm btn-secondary text-center",
+      staticClass: "btn active btn-sm btn-secondary text-center",
       attrs: {
         "href": "#"
       },
@@ -1975,7 +1975,7 @@ var ValidationComponentvue_type_template_id_13898f5b_scoped_true_render = functi
       "innerHTML": _vm._s(_vm.notifications['I_AGREE_BODY'])
     }
   })]), _vm._v(" "), _c('br'), _c('a', {
-    staticClass: "btn btn-md btn-success text-center",
+    staticClass: "btn btn-md btn-success active text-center",
     attrs: {
       "href": _vm.productionURL
     }
@@ -2027,7 +2027,7 @@ var ValidationComponentvue_type_template_id_13898f5b_scoped_true_render = functi
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_47138098_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2056,7 +2056,7 @@ var ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns
   return _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
-    staticClass: "btn btn-secondary",
+    staticClass: "btn active btn-secondary",
     attrs: {
       "type": "button",
       "data-bs-dismiss": "modal"
@@ -2064,7 +2064,7 @@ var ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=13898f5b&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=47138098&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8191,13 +8191,12 @@ defineJQueryPlugin(Toast);
     validate: function (action) {
       var obj = this;
       this.showLoader(action, true);
-      this.buttonDisabled = true;
+      console.log('Count before: ' + obj.dangerErrorsCount);
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
         if (response != undefined) {
           obj.showErrorContainer = true;
-          obj.dangerErrorsCount = 0;
           for (var key in response) {
             if (typeof response[key] === "object") {
               obj.rulesArray[key] = response[key];
@@ -8212,12 +8211,14 @@ defineJQueryPlugin(Toast);
                 obj.dangerErrorsCount++;
               }
             } else {
-              // if rule was failing then succeeded remove it from rules list.
+              // if failed rule succeeded remove it from rules list.
               if (key in obj.rulesArray) {
                 var temp = obj.rulesArray;
                 obj.rulesArray = {};
                 delete temp[key];
                 obj.rulesArray = temp;
+                obj.dangerErrorsCount--;
+                console.log('Count after fix error: ' + obj.dangerErrorsCount);
               }
             }
           }
@@ -8227,6 +8228,7 @@ defineJQueryPlugin(Toast);
         // if no danger errors display success container.
         if (obj.dangerErrorsCount === 0) {
           obj.showSuccessContainer = true;
+          console.log('Count after: ' + obj.dangerErrorsCount);
         }
         obj.buttonDisabled = false;
       }).catch(function (err) {
@@ -8252,7 +8254,7 @@ defineJQueryPlugin(Toast);
       showErrorContainer: false,
       showSuccessContainer: false,
       buttonDisabled: false,
-      dangerErrorsCount: null,
+      dangerErrorsCount: 0,
       modal: null,
       alertMessage: '',
       alertVariant: 'alert-danger'
@@ -8274,11 +8276,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_13898f5b_scoped_true_render,
-  ValidationComponentvue_type_template_id_13898f5b_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_47138098_scoped_true_render,
+  ValidationComponentvue_type_template_id_47138098_scoped_true_staticRenderFns,
   false,
   null,
-  "13898f5b",
+  "47138098",
   null
   
 )
