@@ -161,8 +161,8 @@ class Validations
 
 
                     // Adding : Intrument Name, instrument
-                    $label1 = TextBreak($item1[1]);
-                    $label2 = TextBreak($item2[1]);
+                    $label1 = self::TextBreak($item1[1]);
+                    $label2 = self::TextBreak($item2[1]);
 
 
                     array_push($FilteredOut, array($item1[0], $item1[1], $label1, $item1[3], $link_to_edit1), array($item2[0], $item2[1], $label2, $item2[3], $link_to_edit2));

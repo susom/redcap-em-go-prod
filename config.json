@@ -43,12 +43,6 @@
   "enable-every-page-hooks-on-system-pages": false,
   "links": {
     "project": [
-      {
-        "name": "TEST PAGE: Go Prod",
-        "icon": "fas fa-cog",
-        "url": "pages/index.php",
-        "show-header-and-footer": true
-      }
     ],
     "control-center": [
     ]
