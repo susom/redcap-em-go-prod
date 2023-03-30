@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" style="margin-left: 0 !important;margin-left: 0 !important;" class="container">
     <PageHeader class="mb-2"/>
     <ValidationComponent/>
   </div>

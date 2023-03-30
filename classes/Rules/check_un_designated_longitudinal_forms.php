@@ -66,7 +66,7 @@ class check_un_designated_longitudinal_forms implements ValidationsImplementatio
 
             foreach ($result as $item) {
                 $a = '<a  target="_blank" href=" ' . APP_PATH_WEBROOT . 'Design/designate_forms.php?pid=' . $this->getProject()->project_id .
-                    '"  >' . lang('VIEW') . '</a>';
+                    '"  >' . $this->getNotifications()['VIEW'] . '</a>';
                 array_push($array, array($item, \REDCap::getInstrumentNames($item), $a));
             }
         }

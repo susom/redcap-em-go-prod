@@ -89,7 +89,7 @@ class data_quality_logic_variables_exists implements ValidationsImplementation
         $result = db_query($sql);
         while ($query_res = db_fetch_assoc($result)) {
 
-            $val = $query_res['rtime'] == 1 ? lang("YES") : lang("NO");
+            $val = $query_res['rtime'] == 1 ? $this->getNotifications()["YES_TEXT"] : $this->getNotifications()["NO_TEXT"];
 
             array_push($var, array($query_res['name'], $val, $query_res['logic']));
         }
