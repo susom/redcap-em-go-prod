@@ -11,10 +11,14 @@ class has_r2p2_project implements ValidationsImplementation
 
     public $break = false;
 
+    /** @var \Stanford\ProjectPortal\ProjectPortal $r2p2Object */
+    private $r2p2Object;
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
         $this->setNotifications($notifications);
+        $this->r2p2Object = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
     }
 
     public function getProject(): \Project
@@ -29,12 +33,10 @@ class has_r2p2_project implements ValidationsImplementation
 
     public function validate(): bool
     {
-        /** @var \Stanford\ProjectPortal\ProjectPortal $rma */
-        $rma = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
-        $rma->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
+        $this->r2p2Object->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
 
         // if REDCap project is not linked to R2P2 Project
-        if (!empty($rma->getPortal()->projectPortalSavedConfig)) {
+        if (!empty($this->r2p2Object->getPortal()->projectPortalSavedConfig)) {
             return true;
         }
         return false;
@@ -50,6 +52,10 @@ class has_r2p2_project implements ValidationsImplementation
                 array(
                     'url' => 'https://medwiki.stanford.edu/x/dZeWCg',
                     'title' => 'Read More'
+                ),
+                array(
+                    'url' => $this->r2p2Object->getUrl('views/index.php') . '&open-linkage-modal=true',
+                    'title' => 'Link to R2P2 Project'
                 )
             ),
         );

@@ -1817,8 +1817,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=43f264c2&scoped=true&
-var ValidationComponentvue_type_template_id_43f264c2_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=85cf13e4&scoped=true&
+var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -1887,7 +1887,7 @@ var ValidationComponentvue_type_template_id_43f264c2_scoped_true_render = functi
       }, [_c('div', {
         staticClass: "row"
       }, [_c('div', {
-        staticClass: "col-12"
+        staticClass: "col-12 mb-1"
       }, [_c('a', {
         attrs: {
           "target": "_blank",
@@ -2044,7 +2044,7 @@ var ValidationComponentvue_type_template_id_43f264c2_scoped_true_render = functi
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_43f264c2_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2081,7 +2081,7 @@ var ValidationComponentvue_type_template_id_43f264c2_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=43f264c2&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=85cf13e4&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8293,11 +8293,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_43f264c2_scoped_true_render,
-  ValidationComponentvue_type_template_id_43f264c2_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_85cf13e4_scoped_true_render,
+  ValidationComponentvue_type_template_id_85cf13e4_scoped_true_staticRenderFns,
   false,
   null,
-  "43f264c2",
+  "85cf13e4",
   null
   
 )

@@ -10,10 +10,16 @@ class is_rma_exists implements ValidationsImplementation
 
     public $break = false;
 
+    /**
+     * @var \Stanford\ProjectPortal\ProjectPortal $r2p2Object
+     */
+    private $r2p2Object;
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
         $this->setNotifications($notifications);
+        $this->r2p2Object = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
     }
 
     public function getProject(): \Project
@@ -29,11 +35,9 @@ class is_rma_exists implements ValidationsImplementation
     public function validate(): bool
     {
 
-        /** @var \Stanford\ProjectPortal\ProjectPortal $rma */
-        $rma = \ExternalModules\ExternalModules::getModuleInstance('rit_dashboard');
-        $rma->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
-        $status = $rma->getPortal()->getRMAStatus();
-        $monthlyFees = $rma->getEntity()->getTotalMonthlyPayment($this->getProject()->project_id);
+        $this->r2p2Object->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
+        $status = $this->r2p2Object->getPortal()->getRMAStatus();
+        $monthlyFees = $this->r2p2Object->getEntity()->getTotalMonthlyPayment($this->getProject()->project_id);
 
         /** @var \Stanford\ExternalModuleManager\ExternalModuleManager $manager */
         $manager = \ExternalModules\ExternalModules::getModuleInstance('external_module_manager');

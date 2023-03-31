@@ -56,7 +56,7 @@
           <td>
             <div v-for="link in rule.links" :key="link.url">
               <div class="row">
-                <div class="col-12">
+                <div class="col-12 mb-1">
                   <a target="_blank" :href="link.url">{{ link.title }}</a>
                 </div>
               </div>
@@ -77,7 +77,7 @@
                   <div class="spinner-border" role="status">
                   </div>
                 </div>
-                <button v-if="!rule.loader" class="btn btn-sm btn-outline-primary text-center"
+                <button v-if="!rule.loader" class=" btn btn-sm btn-outline-primary text-center"
                         @click="validate(rule.name)">
                   {{ notifications.RELOAD }}
                 </button>
