@@ -64,7 +64,7 @@ class is_rma_exists implements ValidationsImplementation
                     'title' => 'Read More'
                 ),
                 array(
-                    'url' => $this->r2p2Object->getPortal()->projectPortalSavedConfig['portal_project_url'] . '/sow/' . $this->r2p2Object->getPortal()->getRmaId(),
+                    'url' => $this->r2p2Object->getPortal()->projectPortalSavedConfig['portal_project_url'] . '/sow/?id=' . $this->r2p2Object->getPortal()->getRmaId(),
                     'title' => 'Check RMA Status'
                 )
             ),
