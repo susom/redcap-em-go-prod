@@ -4,6 +4,7 @@ namespace Stanford\GoProd;
 
 require_once('classes/ValidationsImplementation.php');
 require_once('classes/Validations.php');
+require_once "emLoggerTrait.php";
 
 // loads all defined rules
 foreach (glob("classes/Rules/*.php") as $filename)
@@ -13,6 +14,7 @@ foreach (glob("classes/Rules/*.php") as $filename)
 class GoProd extends \ExternalModules\AbstractExternalModule
 {
 
+    use emLoggerTrait;
     const ALL_VALIDATIONS = 'ALL_VALIDATIONS';
 
     /**
