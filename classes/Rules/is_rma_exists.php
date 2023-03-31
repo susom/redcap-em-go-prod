@@ -62,6 +62,10 @@ class is_rma_exists implements ValidationsImplementation
                 array(
                     'url' => 'https://medwiki.stanford.edu/x/dZeWCg',
                     'title' => 'Read More'
+                ),
+                array(
+                    'url' => $this->r2p2Object->getPortal()->projectPortalSavedConfig['portal_project_url'] . '/sow/' . $this->r2p2Object->getPortal()->getRmaId(),
+                    'title' => 'Check RMA Status'
                 )
             ),
         );
