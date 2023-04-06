@@ -45,7 +45,7 @@
   "links": {
     "project": [
       {
-        "name": "TEST PAGE: Go Prod",
+        "name": "Move your Project to Production",
         "icon": "fas fa-cog",
         "key": "goProdAdmin",
         "url": "pages/index.php",

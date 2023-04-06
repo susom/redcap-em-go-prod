@@ -73,18 +73,18 @@ class GoProd extends \ExternalModules\AbstractExternalModule
         $this->getValidations()->setEnabledRules($rules);
     }
 
-    public function redcap_module_link_check_display($project_id, $link)
-    {
-        //limit the logging link to Super Users
-        if ($link['key'] = 'goProdAdmin') {
-            if ($this->isSuperUser()) {
-                return $link;
-            } else {
-                return null;
-            }
-        }
-        return $link;
-    }
+//    public function redcap_module_link_check_display($project_id, $link)
+//    {
+//        //limit the logging link to Super Users
+//        if ($link['key'] = 'goProdAdmin') {
+//            if ($this->isSuperUser()) {
+//                return $link;
+//            } else {
+//                return null;
+//            }
+//        }
+//        return $link;
+//    }
 
     public function redcap_every_page_top(int $project_id)
     {
