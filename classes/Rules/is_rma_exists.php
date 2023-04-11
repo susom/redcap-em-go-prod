@@ -15,6 +15,10 @@ class is_rma_exists implements ValidationsImplementation
      */
     private $r2p2Object;
 
+    public $modalHeader = array("Name", "Maintenance Monthly Cost");
+
+    public $enabledExternalModules = [];
+
     public function __constructor($project, $notifications)
     {
         $this->setProject($project);
@@ -37,16 +41,27 @@ class is_rma_exists implements ValidationsImplementation
 
         $this->r2p2Object->getPortal()->setProjectPortalSavedConfig($this->getProject()->project_id);
         $status = $this->r2p2Object->getPortal()->getRMAStatus();
+
+
+        // update EM list
+        $this->r2p2Object->getManagerEm()->updateProjectEMUtil($this->getProject()->project_id);
+
+
         $monthlyFees = $this->r2p2Object->getEntity()->getTotalMonthlyPayment($this->getProject()->project_id);
 
         /** @var \Stanford\ExternalModuleManager\ExternalModuleManager $manager */
         $manager = \ExternalModules\ExternalModules::getModuleInstance('external_module_manager');
+
         $monthlyFees += $manager->getProjectTotalCustomCharges($this->getProject()->project_id);
         // if no monthly charges found ignore RMA status
         if ($monthlyFees <= 0) {
             return true;
         }
 
+        $ems = $this->r2p2Object->getEntity()->generateProjectEMUsageArray($this->getProject()->project_id);
+        foreach ($ems as $em) {
+            $this->enabledExternalModules[] = array($em['prefix'], $em['maintenance_monthly_cost']);
+        }
         //$rma='3';
         $valid_status = array(2, 6, 7);
         return in_array(strval($status), $valid_status) ? true : false;
@@ -58,6 +73,8 @@ class is_rma_exists implements ValidationsImplementation
             'title' => $this->getNotifications()['RMA_TITLE'],
             'body' => $this->getNotifications()['RMA_BODY'],
             'type' => $this->getNotifications()['DANGER'],
+            'modal' => $this->enabledExternalModules,
+            'modalHeader' => $this->modalHeader,
             'links' => array(
                 array(
                     'url' => 'https://medwiki.stanford.edu/x/dZeWCg',

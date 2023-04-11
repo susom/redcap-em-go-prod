@@ -1807,8 +1807,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=85cf13e4&scoped=true&
-var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=62027cbc&scoped=true&
+var ValidationComponentvue_type_template_id_62027cbc_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -2034,7 +2034,7 @@ var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_render = functi
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_62027cbc_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2071,7 +2071,7 @@ var ValidationComponentvue_type_template_id_85cf13e4_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=85cf13e4&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=62027cbc&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8170,6 +8170,7 @@ defineJQueryPlugin(Toast);
 
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=script&lang=js&
 
+
 /* harmony default export */ var ValidationComponentvue_type_script_lang_js_ = ({
   name: "ValidationComponent",
   methods: {
@@ -8198,7 +8199,6 @@ defineJQueryPlugin(Toast);
     validate: function (action) {
       var obj = this;
       this.showLoader(action, true);
-      console.log('Count before: ' + obj.dangerErrorsCount);
       window.module.ajax(action).then(function (response) {
         // Do stuff with response
         console.log("ajax complete", response);
@@ -8215,7 +8215,12 @@ defineJQueryPlugin(Toast);
 
               // if this error increase counter
               if (response[key]['type'].toLowerCase() === 'danger') {
-                obj.dangerErrorsCount++;
+                // make sure the rule not already in the array.
+                const index = obj.dangerErrorsArray.indexOf(key);
+                if (index === -1) {
+                  // only splice array when item is found
+                  obj.dangerErrorsArray.push(key); // 2nd parameter means remove one item only
+                }
               }
             } else {
               // if failed rule succeeded remove it from rules list.
@@ -8224,18 +8229,24 @@ defineJQueryPlugin(Toast);
                 obj.rulesArray = {};
                 delete temp[key];
                 obj.rulesArray = temp;
-                obj.dangerErrorsCount--;
-                console.log('Count after fix error: ' + obj.dangerErrorsCount);
+                // delete rule from failed rules
+                const index = obj.dangerErrorsArray.indexOf(key);
+                if (index > -1) {
+                  // only splice array when item is found
+                  obj.dangerErrorsArray.splice(index, 1); // 2nd parameter means remove one item only
+                }
+
+                console.log('Count after fix error: ' + obj.dangerErrorsArray);
               }
             }
           }
         }
         obj.showLoader(action, false);
-
+        console.log(obj.dangerErrorsArray);
         // if no danger errors display success container.
-        if (obj.dangerErrorsCount === 0) {
+        if (obj.dangerErrorsArray.length === 0) {
           obj.showSuccessContainer = true;
-          console.log('Count after: ' + obj.dangerErrorsCount);
+          console.log('Count after: ' + obj.dangerErrorsArray);
         }
         obj.buttonDisabled = false;
       }).catch(function (err) {
@@ -8261,7 +8272,7 @@ defineJQueryPlugin(Toast);
       showErrorContainer: false,
       showSuccessContainer: false,
       buttonDisabled: false,
-      dangerErrorsCount: 0,
+      dangerErrorsArray: [],
       modal: null,
       alertMessage: '',
       alertVariant: 'alert-danger'
@@ -8283,11 +8294,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_85cf13e4_scoped_true_render,
-  ValidationComponentvue_type_template_id_85cf13e4_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_62027cbc_scoped_true_render,
+  ValidationComponentvue_type_template_id_62027cbc_scoped_true_staticRenderFns,
   false,
   null,
-  "85cf13e4",
+  "62027cbc",
   null
   
 )
