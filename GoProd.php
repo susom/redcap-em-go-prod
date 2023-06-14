@@ -7,14 +7,15 @@ require_once('classes/Validations.php');
 require_once "emLoggerTrait.php";
 
 // loads all defined rules
-foreach (glob("classes/Rules/*.php") as $filename)
-{
+foreach (glob("classes/Rules/*.php") as $filename) {
     require_once($filename);
 }
+
 class GoProd extends \ExternalModules\AbstractExternalModule
 {
 
     use emLoggerTrait;
+
     const ALL_VALIDATIONS = 'ALL_VALIDATIONS';
 
     /**
@@ -37,15 +38,6 @@ class GoProd extends \ExternalModules\AbstractExternalModule
     {
         parent::__construct();
         // Other code to run when object is instantiated
-
-
-
-        if ((isset($_GET['pid']) && $_GET['pid'] != "") || (isset($_GET['projectid']) && $_GET['projectid'] != "")) {
-            global $Proj;
-            $this->setProject($Proj);
-            $this->setValidations(new Validations($Proj));
-            $this->setEnabledRules();
-        }
 
     }
 
@@ -89,6 +81,15 @@ class GoProd extends \ExternalModules\AbstractExternalModule
     public function redcap_every_page_top(int $project_id)
     {
         if (PAGE == 'ProjectSetup/index.php') {
+
+
+            if ((isset($_GET['pid']) && $_GET['pid'] != "") || (isset($_GET['projectid']) && $_GET['projectid'] != "")) {
+                global $Proj;
+                $this->setProject($Proj);
+                $this->setValidations(new Validations($Proj));
+                $this->setEnabledRules();
+            }
+
             // final check before showing real button. in case URL was hardcoded.
             if (isset($_GET['to_prod_plugin']) and $_GET['to_prod_plugin'] === "1") {
                 $result = $this->redcap_module_ajax(self::ALL_VALIDATIONS, [], $this->getProjectId(), '', '', '', '', '', '', '', '', '', '', '');
