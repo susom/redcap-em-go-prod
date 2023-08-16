@@ -54,12 +54,13 @@ class GoProd extends \ExternalModules\AbstractExternalModule
                 // init validation class name which is coming from config.json settings.
                 /** @var \Stanford\GoProd\just_for_fun_project $obj */
                 $obj = new $temp();
-                $obj->__constructor($this->getProject(), $this->getNotifications());
-                $rules[$name] = $obj;
                 // add prefix
                 if (property_exists($obj, 'prefix')) {
                     $obj->prefix = $this->PREFIX;
                 }
+                $obj->__constructor($this->getProject(), $this->getNotifications());
+                $rules[$name] = $obj;
+
             }
         }
         $this->getValidations()->setEnabledRules($rules);
@@ -83,7 +84,7 @@ class GoProd extends \ExternalModules\AbstractExternalModule
         if (PAGE == 'ProjectSetup/index.php') {
 
 
-            if ((isset($_GET['pid']) && $_GET['pid'] != "") || (isset($_GET['projectid']) && $_GET['projectid'] != "")) {
+            if ((isset($_GET['pid']) && $_GET['pid'] != "")) {
                 global $Proj;
                 $this->setProject($Proj);
                 $this->setValidations(new Validations($Proj));
@@ -112,6 +113,13 @@ class GoProd extends \ExternalModules\AbstractExternalModule
     public function redcap_module_ajax($action, $payload, $project_id, $record, $instrument, $event_id, $repeat_instance,
                                        $survey_hash, $response_id, $survey_queue_hash, $page, $page_full, $user_id, $group_id)
     {
+        if ((isset($_GET['pid']) && $_GET['pid'] != "")) {
+                global $Proj;
+                $this->setProject($Proj);
+                $this->setValidations(new Validations($Proj));
+                $this->setEnabledRules();
+            }
+
         $this->emDebug('Action: ' . $action);
         if ($action == self::ALL_VALIDATIONS) {
             $result = [];
