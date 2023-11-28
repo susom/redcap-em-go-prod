@@ -16,6 +16,14 @@ class Validations
      */
     private $enabledRules;
 
+    private static $smartVariables = array(
+        'last-instance',
+        'previous-instance',
+        'current-instance',
+        'first-instance',
+        'next-instance',
+        'new-instance',
+    );
     public function __construct($project)
     {
         $this->setProject($project);
@@ -215,6 +223,12 @@ class Validations
             //array_push($branching_logic_array,$matches[1]);
             //$branching_logic_array=array_merge($branching_logic_array,$matches[1]);
             foreach ($matches[1] as $item2) {
+
+                // if variable is smart variable then skip it because it not a real variable.
+                if(in_array($item2, self::$smartVariables)){
+                    continue;
+                }
+
                 if ($longitudinal) {
                     //do not remove if the Event name is also used as a Variable name.
                     if (!in_array($item2, self::VariableNamesWithTheSameNameAsAnEventName())) {
