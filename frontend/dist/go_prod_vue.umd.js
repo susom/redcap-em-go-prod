@@ -1817,8 +1817,8 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var PageHeader = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=62027cbc&scoped=true&
-var ValidationComponentvue_type_template_id_62027cbc_scoped_true_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/components/ValidationComponent.vue?vue&type=template&id=3941d184&scoped=true&
+var ValidationComponentvue_type_template_id_3941d184_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -1992,6 +1992,20 @@ var ValidationComponentvue_type_template_id_62027cbc_scoped_true_render = functi
     attrs: {
       "href": _vm.productionURL
     }
+  }, [_vm._v(" " + _vm._s(_vm.notifications['I_AGREE']) + " ")])])]) : _vm._e(), _vm.superUserBypass === true ? _c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "col-md-12 col-sm-6 col-xs-12 col-lg-12 text-center well"
+  }, [_c('h5', [_c('span', {
+    staticClass: "alert alert-warning",
+    domProps: {
+      "innerHTML": _vm._s(_vm.notifications['BYPASS_WARNING'])
+    }
+  })]), _vm._v(" "), _c('br'), _c('a', {
+    staticClass: "btn btn-md btn-success active text-center",
+    attrs: {
+      "href": _vm.productionURL
+    }
   }, [_vm._v(" " + _vm._s(_vm.notifications['I_AGREE']) + " ")])])]) : _vm._e(), _c('div', {
     ref: "ruleModal",
     staticClass: "modal fade",
@@ -2044,7 +2058,7 @@ var ValidationComponentvue_type_template_id_62027cbc_scoped_true_render = functi
     }), 0);
   }), 0)])]), _vm._m(2)])])])]);
 };
-var ValidationComponentvue_type_template_id_62027cbc_scoped_true_staticRenderFns = [function () {
+var ValidationComponentvue_type_template_id_3941d184_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2081,7 +2095,7 @@ var ValidationComponentvue_type_template_id_62027cbc_scoped_true_staticRenderFns
   }, [_vm._v("Close")])]);
 }];
 
-;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=62027cbc&scoped=true&
+;// CONCATENATED MODULE: ./src/components/ValidationComponent.vue?vue&type=template&id=3941d184&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
@@ -8258,6 +8272,12 @@ defineJQueryPlugin(Toast);
           obj.showSuccessContainer = true;
           console.log('Count after: ' + obj.dangerErrorsArray);
         }
+
+        // if logged in user is a superuser allow them to bypass go_prod
+        if (window.isSuperUser === 1) {
+          obj.superUserBypass = true;
+          console.log('Bypass checks');
+        }
         obj.buttonDisabled = false;
       }).catch(function (err) {
         obj.showAlert = true;
@@ -8281,6 +8301,7 @@ defineJQueryPlugin(Toast);
       showLoaderIcon: false,
       showErrorContainer: false,
       showSuccessContainer: false,
+      superUserBypass: false,
       buttonDisabled: false,
       dangerErrorsArray: [],
       modal: null,
@@ -8304,11 +8325,11 @@ defineJQueryPlugin(Toast);
 ;
 var ValidationComponent_component = normalizeComponent(
   components_ValidationComponentvue_type_script_lang_js_,
-  ValidationComponentvue_type_template_id_62027cbc_scoped_true_render,
-  ValidationComponentvue_type_template_id_62027cbc_scoped_true_staticRenderFns,
+  ValidationComponentvue_type_template_id_3941d184_scoped_true_render,
+  ValidationComponentvue_type_template_id_3941d184_scoped_true_staticRenderFns,
   false,
   null,
-  "62027cbc",
+  "3941d184",
   null
   
 )

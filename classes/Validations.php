@@ -229,6 +229,11 @@ class Validations
                     continue;
                 }
 
+                // skip if instance number.
+                if(is_numeric($item2)){
+                    continue;
+                }
+
                 if ($longitudinal) {
                     //do not remove if the Event name is also used as a Variable name.
                     if (!in_array($item2, self::VariableNamesWithTheSameNameAsAnEventName())) {

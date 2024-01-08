@@ -12,6 +12,7 @@ echo $module->initializeJavascriptModuleObject();
 // init REDCap VUEJS
 print loadJS('vue/vue-factory/dist/js/app.js');
 
+$user = $module->framework->getUser();
 ?>
 <style>
     .fade-enter-active, .fade-leave-active {
@@ -29,6 +30,7 @@ print loadJS('vue/vue-factory/dist/js/app.js');
     window.productionURL = <?php  echo json_encode(APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $module->getProjectId() . '&to_prod_plugin=1')?>;
     window.module = <?=$module->getJavascriptModuleObjectName()?>;
     window.notifications = <?php echo json_encode($module->getNotifications()) ?>;
+    window.isSuperUser = <?=$user->isSuperUser() ?>;
     window.addEventListener('DOMContentLoaded', function (event) {
         const componentPromise = window.renderVueComponent(go_prod_vue, '#go_prod_vue')
         componentPromise.then(component => {

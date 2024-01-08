@@ -93,16 +93,20 @@ class GoProd extends \ExternalModules\AbstractExternalModule
 
             // final check before showing real button. in case URL was hardcoded.
             if (isset($_GET['to_prod_plugin']) and $_GET['to_prod_plugin'] === "1") {
-                $result = $this->redcap_module_ajax(self::ALL_VALIDATIONS, [], $this->getProjectId(), '', '', '', '', '', '', '', '', '', '', '');
-                foreach ($result as $rule) {
-                    if (is_array($rule) and strtolower($rule['type']) === 'danger') {
-                        $query = $_GET;
-                        // replace parameter(s)
-                        $query['to_prod_plugin'] = '0';
-                        // rebuild url
-                        $query_result = http_build_query($query);
-                        header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $query_result);
-                        $this->exitAfterHook();
+                // allow superusers to skip final rules checks.
+                $user = $this->framework->getUser();
+                if (!$user->isSuperUser()) {
+                    $result = $this->redcap_module_ajax(self::ALL_VALIDATIONS, [], $this->getProjectId(), '', '', '', '', '', '', '', '', '', '', '');
+                    foreach ($result as $rule) {
+                        if (is_array($rule) and strtolower($rule['type']) === 'danger') {
+                            $query = $_GET;
+                            // replace parameter(s)
+                            $query['to_prod_plugin'] = '0';
+                            // rebuild url
+                            $query_result = http_build_query($query);
+                            header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $query_result);
+                            $this->exitAfterHook();
+                        }
                     }
                 }
             }
@@ -114,11 +118,11 @@ class GoProd extends \ExternalModules\AbstractExternalModule
                                        $survey_hash, $response_id, $survey_queue_hash, $page, $page_full, $user_id, $group_id)
     {
         if ((isset($_GET['pid']) && $_GET['pid'] != "")) {
-                global $Proj;
-                $this->setProject($Proj);
-                $this->setValidations(new Validations($Proj));
-                $this->setEnabledRules();
-            }
+            global $Proj;
+            $this->setProject($Proj);
+            $this->setValidations(new Validations($Proj));
+            $this->setEnabledRules();
+        }
 
         $this->emDebug('Action: ' . $action);
         if ($action == self::ALL_VALIDATIONS) {
