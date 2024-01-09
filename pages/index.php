@@ -30,7 +30,7 @@ $user = $module->framework->getUser();
     window.productionURL = <?php  echo json_encode(APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $module->getProjectId() . '&to_prod_plugin=1')?>;
     window.module = <?=$module->getJavascriptModuleObjectName()?>;
     window.notifications = <?php echo json_encode($module->getNotifications()) ?>;
-    window.isSuperUser = <?=$user->isSuperUser() ?>;
+    window.isSuperUser = <?=$user->isSuperUser()?1:0; ?>;
     window.addEventListener('DOMContentLoaded', function (event) {
         const componentPromise = window.renderVueComponent(go_prod_vue, '#go_prod_vue')
         componentPromise.then(component => {
