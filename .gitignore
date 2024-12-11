@@ -13,3 +13,6 @@ gitInit.sh
 
 # Composer
 /vendor
+
+# VUE 3 modules
+frontend_3/node_modules

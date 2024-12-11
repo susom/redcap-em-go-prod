@@ -24,18 +24,15 @@ $user = $module->framework->getUser();
         opacity: 0;
     }
 </style>
-<script src="<?php echo $module->getUrl("frontend/dist/go_prod_vue.umd.js") ?>"></script>
-<div id="go_prod_vue"></div>
+
+<div id="app"></div>
 <script>
     window.productionURL = <?php  echo json_encode(APP_PATH_WEBROOT . 'ProjectSetup/index.php?pid=' . $module->getProjectId() . '&to_prod_plugin=1')?>;
     window.module = <?=$module->getJavascriptModuleObjectName()?>;
     window.notifications = <?php echo json_encode($module->getNotifications()) ?>;
     window.isSuperUser = <?=$user->isSuperUser()?1:0; ?>;
-    window.addEventListener('DOMContentLoaded', function (event) {
-        const componentPromise = window.renderVueComponent(go_prod_vue, '#go_prod_vue')
-        componentPromise.then(component => {
-            console.log('component is ready')
-        })
-    })
+
 </script>
+<script src="<?php echo $module->getUrl("frontend_3/public/js/bundle.js") ?>" defer></script>
+
 
